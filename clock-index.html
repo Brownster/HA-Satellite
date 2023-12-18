@@ -9,6 +9,7 @@
     <input type="time" id="alarmTime">
     <button onclick="setAlarm()">Set Alarm</button>
     <button id="stopButton" onclick="stopAlarm()" style="display:none;">Stop Alarm</button>
+    <button id="snoozeButton" onclick="snoozeAlarm()" style="display:none;">Snooze Alarm</button>
     <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
     
     <script>
@@ -20,6 +21,7 @@
                 body: 'alarmTime=' + alarmTime
             });
             document.getElementById('stopButton').style.display = 'none'; // Hide stop button when setting a new alarm
+            document.getElementById('snoozeButton').style.display = 'none'; // Hide snooze button when setting a new alarm
         }
 
         function stopAlarm() {
@@ -27,19 +29,14 @@
             alarmSound.pause(); // Stop the alarm sound
             alarmSound.currentTime = 0; // Reset the sound to the start
             document.getElementById('stopButton').style.display = 'none'; // Hide the stop button
+            document.getElementById('snoozeButton').style.display = 'none'; // Hide the snooze button
+            fetch('/stop_alarm', { method: 'POST' }); // Send a request to stop the alarm
         }
 
-        // Poll the server to check for alarm
-        setInterval(function() {
-            fetch('/check_alarm')
-                .then(response => response.json())
-                .then(data => {
-                    if(data.alarm) {
-                        document.getElementById('alarmSound').play();
-                        document.getElementById('stopButton').style.display = 'inline'; // Show the stop button when the alarm goes off
-                    }
-                });
-        }, 60000); // Check every minute
+        function snoozeAlarm() {
+            fetch('/snooze_alarm', { method: 'POST' }); // Send a request to snooze the alarm
+            document.getElementById('snoozeButton').style.display = 'none'; // Hide the snooze button
+        }
     </script>
 </body>
 </html>

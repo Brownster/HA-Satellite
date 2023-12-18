@@ -1,3 +1,4 @@
+import os
 import paho.mqtt.client as mqtt
 
 mqtt_host = "your_mqtt_broker_ip"
@@ -14,10 +15,13 @@ def on_message(client, userdata, msg):
 
     # Parse the message and take appropriate action
     if msg.topic == topic:
-        if message == "80":  # Assuming "80" represents 80% brightness
-            # Implement code to set screen brightness to 80%
-            print("Setting screen brightness to 80%")
-            # You can call functions or execute commands to adjust screen brightness here
+        try:
+            brightness = int(message)  # Try to convert the message to an integer
+            # Implement code to set screen brightness to the received value
+            print(f"Setting screen brightness to {brightness}%")
+            os.system(f"xbacklight -set {brightness}")  # This command works on Linux with xbacklight installed
+        except ValueError:
+            print("Received invalid brightness value")
 
 client = mqtt.Client()
 client.on_connect = on_connect

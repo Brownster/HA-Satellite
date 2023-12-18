@@ -22,8 +22,9 @@ nano /home/pi/start-chromium.sh
 #Add the following content to the script and save it:
 
 #!/bin/bash
-chromium-browser --kiosk http://homeassistant.local:8123
-
+chromium-browser --kiosk --no-first-run http://homeassistant.local:8123
+#other options:
+#chromium-browser --start-fullscreen --kiosk --disable-infobars --no-first-run --incognito http://homeassistant.local:8123
 #Make the script executable:
 
 chmod +x /home/pi/start-chromium.sh
