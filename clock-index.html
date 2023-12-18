@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web-based Alarm Clock</title>
+</head>
+<body>
+    <h1>Set Your Alarm</h1>
+    <input type="time" id="alarmTime">
+    <button onclick="setAlarm()">Set Alarm</button>
+    <button id="stopButton" onclick="stopAlarm()" style="display:none;">Stop Alarm</button>
+    <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+    
+    <script>
+        function setAlarm() {
+            const alarmTime = document.getElementById('alarmTime').value;
+            fetch('/set_alarm', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'alarmTime=' + alarmTime
+            });
+            document.getElementById('stopButton').style.display = 'none'; // Hide stop button when setting a new alarm
+        }
+
+        function stopAlarm() {
+            const alarmSound = document.getElementById('alarmSound');
+            alarmSound.pause(); // Stop the alarm sound
+            alarmSound.currentTime = 0; // Reset the sound to the start
+            document.getElementById('stopButton').style.display = 'none'; // Hide the stop button
+        }
+
+        // Poll the server to check for alarm
+        setInterval(function() {
+            fetch('/check_alarm')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.alarm) {
+                        document.getElementById('alarmSound').play();
+                        document.getElementById('stopButton').style.display = 'inline'; // Show the stop button when the alarm goes off
+                    }
+                });
+        }, 60000); // Check every minute
+    </script>
+</body>
+</html>
