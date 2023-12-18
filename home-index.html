@@ -2,6 +2,53 @@
 <html>
 <head>
     <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        div {
+            margin-top: 20px;
+        }
+
+        a {
+            margin: 10px;
+            text-decoration: none;
+        }
+
+        img {
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            max-width: 150px;
+            max-height: 150px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #datetime {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to Your Home Assistant Satellite</h1>
@@ -13,11 +60,22 @@
         <a href="URL5"><img src="image5.jpg" alt="Image 5"></a>
         <a href="URL6"><img src="image6.jpg" alt="Image 6"></a>
     </div>
-    <script>
-        function changeURL(url) {
-            window.location.href = url;
-        }
-    </script>
+    <div id="datetime">
+        <script>
+            function changeURL(url) {
+                window.location.href = url;
+            }
+
+            function updateDateTime() {
+                var now = new Date();
+                var dateTimeString = now.toLocaleString();
+                document.getElementById("datetime").innerHTML = dateTimeString;
+            }
+
+            setInterval(updateDateTime, 1000); // Update every second
+            updateDateTime(); // Initial update
+        </script>
+    </div>
     <button onclick="changeURL('URL7')">Change URL</button>
 </body>
 </html>
