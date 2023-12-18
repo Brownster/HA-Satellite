@@ -1,0 +1,4 @@
+http://homeassistant.local:8123
+http://mainsail.local
+https://netflix.com
+http://127.0.0.1:8080
