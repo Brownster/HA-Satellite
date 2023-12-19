@@ -12,6 +12,76 @@
     <button id="snoozeButton" onclick="snoozeAlarm()" style="display:none;">Snooze Alarm</button>
     <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
     
+    <!-- Add a new section to display set alarms -->
+    <h2>Set Alarms</h2>
+    <ul id="alarmsList"></ul>
+    
+    <script>
+        function setAlarm() {
+            const alarmTime = document.getElementById('alarmTime').value;
+            fetch('/set_alarm', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'alarmTime=' + alarmTime
+            })
+            .then(() => {
+                // Update the list of set alarms after setting a new alarm
+                updateAlarmsList();
+            });
+
+            document.getElementById('stopButton').style.display = 'none'; // Hide stop button when setting a new alarm
+            document.getElementById('snoozeButton').style.display = 'none'; // Hide snooze button when setting a new alarm
+        }
+
+        function stopAlarm() {
+            const alarmSound = document.getElementById('alarmSound');
+            alarmSound.pause(); // Stop the alarm sound
+            alarmSound.currentTime = 0; // Reset the sound to the start
+            document.getElementById('stopButton').style.display = 'none'; // Hide the stop button
+            document.getElementById('snoozeButton').style.display = 'none'; // Hide the snooze button
+            fetch('/stop_alarm', { method: 'POST' }); // Send a request to stop the alarm
+        }
+
+        function snoozeAlarm() {
+            fetch('/snooze_alarm', { method: 'POST' }); // Send a request to snooze the alarm
+            document.getElementById('snoozeButton').style.display = 'none'; // Hide the snooze button
+        }
+
+        // Function to update the list of set alarms
+        function updateAlarmsList() {
+            fetch('/get_alarms') // Create a new route to retrieve the list of alarms from the server
+            .then(response => response.json())
+            .then(data => {
+                const alarmsList = document.getElementById('alarmsList');
+                alarmsList.innerHTML = ''; // Clear the existing list
+
+                data.alarms.forEach(alarm => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = alarm;
+                    alarmsList.appendChild(listItem);
+                });
+            });
+        }
+
+        // Initial update of the alarms list when the page loads
+        updateAlarmsList();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web-based Alarm Clock</title>
+</head>
+<body>
+    <h1>Set Your Alarm</h1>
+    <input type="time" id="alarmTime">
+    <button onclick="setAlarm()">Set Alarm</button>
+    <button id="stopButton" onclick="stopAlarm()" style="display:none;">Stop Alarm</button>
+    <button id="snoozeButton" onclick="snoozeAlarm()" style="display:none;">Snooze Alarm</button>
+    <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+    
     <script>
         function setAlarm() {
             const alarmTime = document.getElementById('alarmTime').value;
