@@ -18,7 +18,7 @@ echo"⠀⠀⠀⠀⠀⠀⠀⠈⠛⠒⠁⠀⠀⠀⠈⠓⠒⠁⠀⠀⠀⠀⠀⠀⠀
 echo "Step 1: Updating and upgrading the system..."
 sudo apt update
 sudo apt upgrade -y
-sudo apt-get install --no-install-recommends git python3-venv
+sudo apt-get install --no-install-recommends git python3-venv florence
 
 ################ INSTALL CHROMIUM IN KIOSK MODE #######################
 # Install Chromium
