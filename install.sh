@@ -193,12 +193,15 @@ create_service() {
 [Unit]
 Description=My Python Script: $script_name
 After=network.target
+Wants=network.target
 
 [Service]
 ExecStart=/usr/bin/python3 "$PWD/$script_name"
 Restart=always
-User=your_username
-Group=your_group_name
+User=my_script_user
+Group=my_script_group
+WorkingDirectory=$PWD
+StandardOutput=journal
 
 [Install]
 WantedBy=multi-user.target
@@ -210,7 +213,7 @@ EOF
 }
 
 # List of Python scripts you want to create services for
-python_scripts=("script1.py" "script2.py" "script3.py")
+python_scripts=("mqtt-listener.py" "alarm-clock.py" "kiosk-home.py")
 
 # Create systemd services for each script
 for script in "${python_scripts[@]}"; do
