@@ -177,9 +177,45 @@ sudo systemctl restart raspotify
 
 echo "Raspotify setup completed. You can now connect to your Raspberry Pi via Spotify Connect."
 
-
-cd /usr/src/
+###### Install scripts for MQTT etc and make them services.
+cd /usr/src
 wget https://github.com/Brownster/HA-Satellite
+cd /usr/src/HA-Satellite/scripts
+
+# Create and enable systemd services for Python scripts
+create_service() {
+    script_name="$1"
+    service_name="${script_name%.py}"  # Remove the .py extension to create the service name
+    service_file="/etc/systemd/system/${service_name}.service"
+
+    echo "Creating systemd service for $script_name..."
+    cat <<EOF | sudo tee "$service_file" > /dev/null
+[Unit]
+Description=My Python Script: $script_name
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 "$PWD/$script_name"
+Restart=always
+User=your_username
+Group=your_group_name
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    sudo systemctl daemon-reload
+    sudo systemctl enable "$service_name"
+    sudo systemctl start "$service_name"
+}
+
+# List of Python scripts you want to create services for
+python_scripts=("script1.py" "script2.py" "script3.py")
+
+# Create systemd services for each script
+for script in "${python_scripts[@]}"; do
+    create_service "$script"
+done
 
 # Reboot the satellite
 echo " rebooting the server"
