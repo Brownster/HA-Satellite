@@ -1,45 +1,190 @@
-#    Download Raspbian Minimal from the official Raspberry Pi website.
-#    Flash the Raspbian Minimal image onto an SD card using a tool like Etcher.
-#    Insert the SD card into your Raspberry Pi and power it on.
-
-#Step 2: Install Required Software
-#Connect to your Raspberry Pi via SSH or use the terminal directly.
-#Update the package list and upgrade installed packages:
-
+#!/bin/bash
+# this script attemts to install chromium in kiosk mode HA satellite for voice and spotify connect.
+# Step 1: Update and upgrade the system
+echo "Step 1: Updating and upgrading the system..."
 sudo apt update
-sudo apt upgrade
+sudo apt upgrade -y
+sudo apt-get install --no-install-recommends git python3-venv
 
-#Step 3: Install Chromium
-#Install Chromium:
+# Step 2: Install Chromium
+echo "Step 2: Installing Chromium..."
+sudo apt install chromium-browser -y
 
-sudo apt install chromium-browser
-
-#Step 4: Set up Kiosk Mode
-#Create a new script to launch Chromium in kiosk mode:
-
-nano /home/pi/start-chromium.sh
-
-#Add the following content to the script and save it:
-
+# Step 3: Create a script to launch Chromium in kiosk mode
+echo "Step 3: Creating a script to launch Chromium in kiosk mode..."
+cat <<EOF > /home/pi/start-chromium.sh
 #!/bin/bash
 chromium-browser --kiosk --no-first-run http://homeassistant.local:8123
-#other options:
-#chromium-browser --start-fullscreen --kiosk --disable-infobars --no-first-run --incognito http://homeassistant.local:8123
-#Make the script executable:
+EOF
 
+# Make the script executable
 chmod +x /home/pi/start-chromium.sh
 
-#Step 5: Set up Debug Mode
-#To enable debugging, you can modify the script to run Chromium with remote debugging enabled:
+# Step 4: Set up Debug Mode (Optional)
+echo "Step 4: Setting up Debug Mode (Optional)..."
+# To enable debugging, you can modify the script to run Chromium with remote debugging enabled:
+# Uncomment the following lines if you want to enable debugging.
+# cat <<EOF >> /home/pi/start-chromium.sh
+# #!/bin/bash
+# chromium-browser --kiosk --remote-debugging-port=9222 http://homeassistant.local:8123
+# EOF
 
-#!/bin/bash
-chromium-browser --kiosk --remote-debugging-port=9222 http://homeassistant.local:8123
+# Step 5: Autostart Chromium
+echo "Step 5: Adding Chromium to autostart..."
+# Add the script to the LXDE autostart file
+echo "@/home/pi/start-chromium.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 
-#Step 6: Autostart Chromium
-#To make Chromium start automatically when the Raspberry Pi boots up, you can add the script to the LXDE autostart file:
+# Step 6: Reboot the Raspberry Pi
+echo "Chromium setup completed. Rebooting the Raspberry Pi..."
+# Reboot the Raspberry Pi to apply changes
+sudo reboot
 
-#nano /etc/xdg/lxsession/LXDE-pi/autostart
 
-#Add the following line to the end of the file:
 
-#@/home/pi/start-chromium.sh
+#clone the wyoming-satellite repository
+git clone https://github.com/rhasspy/wyoming-satellite.git
+
+# Install drivers for ReSpeaker 2Mic or 4Mic HAT (if applicable)
+cd wyoming-satellite/
+sudo bash etc/install-repeaker-drivers.sh
+
+# Install Wyoming Satellite
+cd wyoming-satellite/
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install --upgrade pip
+pip3 install --upgrade wheel setuptools
+pip3 install -f 'https://synesthesiam.github.io/prebuilt-apps/' -r requirements.txt -r requirements_extra.txt
+
+# Check if the installation was successful
+if [ -f script/run ]; then
+  echo "Installation completed successfully."
+  echo "You can now run the satellite with: ./script/run --help"
+else
+  echo "Installation failed. Please check for errors."
+fi
+
+# Function to record audio from a specific microphone device
+record_audio() {
+  local device="$1"
+  echo "Recording audio from device: $device..."
+  arecord -D "$device" -r 16000 -c 1 -f S16_LE -t wav -d 5 test.wav
+}
+
+# Function to play back recorded audio
+play_audio() {
+  local device="$1"
+  echo "Playing back recorded audio on device: $device..."
+  aplay -D "$device" test.wav
+}
+
+# List available microphones
+echo "Listing available microphones:"
+arecord -L
+
+# Prompt user to choose a microphone device
+echo "Enter the microphone device you want to use (e.g., plughw:CARD=seeed2micvoicec,DEV=0):"
+read chosen_microphone
+
+# Record and play audio with the chosen microphone device
+record_audio "$chosen_microphone"
+
+# Check if there were problems during recording
+if [ $? -ne 0 ]; then
+  echo "Error occurred during recording. Trying a different microphone device..."
+
+  # List available microphones again
+  echo "Listing available microphones:"
+  arecord -L
+
+  # Prompt user to choose a different microphone device
+  echo "Enter a different microphone device (or press Enter to use default):"
+  read new_microphone
+
+  # Use the new microphone device for recording and playback
+  if [ -n "$new_microphone" ]; then
+    record_audio "$new_microphone"
+  else
+    echo "Using default microphone device."
+    record_audio "$chosen_microphone" # Using the originally chosen device
+  fi
+fi
+
+# Play back the recorded audio
+play_audio "$chosen_microphone" # Using the originally chosen device for playback
+
+
+
+# Run the satellite
+echo "Starting the Wyoming Satellite..."
+./script/run \
+  --debug \
+  --name 'my satellite' \
+  --uri 'tcp://0.0.0.0:10700' \
+  --mic-command 'arecord -D plughw:CARD=seeed2micvoicec,DEV=0 -r 16000 -c 1 -f S16_LE -t raw' \
+  --snd-command 'aplay -D plughw:CARD=seeed2micvoicec,DEV=0 -r 22050 -c 1 -f S16_LE -t raw'
+
+# Create a systemd service for the satellite
+sudo tee /etc/systemd/system/wyoming-satellite.service > /dev/null <<EOL
+[Unit]
+Description=Wyoming Satellite
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=$PWD/script/run --name 'my satellite' --uri 'tcp://0.0.0.0:10700' --mic-command 'arecord -D plughw:CARD=seeed2micvoicec,DEV=0 -r 16000 -c 1 -f S16_LE -t raw' --snd-command 'aplay -D plughw:CARD=seeed2micvoicec,DEV=0 -r 22050 -c 1 -f S16_LE -t raw'
+WorkingDirectory=$PWD
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=default.target
+EOL
+
+# Enable and start the systemd service
+sudo systemctl enable --now wyoming-satellite.service
+
+echo "Wyoming Satellite service is now running."
+echo "You can check the logs with: journalctl -u wyoming-satellite.service -f"
+
+######## INSTALL SPOTIFY CONNECT ~~
+# Step 1: Update and upgrade the system
+echo "Step 1: Updating and upgrading the system..."
+sudo apt update
+sudo apt upgrade -y
+
+# Step 2: Install required packages
+echo "Step 2: Installing required packages..."
+sudo apt install -y apt-transport-https curl
+
+# Step 3: Add GPG key and repository for raspotify
+echo "Step 3: Adding GPG key and repository for raspotify..."
+curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo tee /usr/share/keyrings/raspotify-archive-keyrings.asc >/dev/null
+echo 'deb [signed-by=/usr/share/keyrings/raspotify-archive-keyrings.asc] https://dtcooper.github.io/raspotify raspotify main' | sudo tee /etc/apt/sources.list.d/raspotify.list
+
+# Step 4: Install raspotify package
+echo "Step 4: Installing raspotify package..."
+sudo apt update
+sudo apt install -y raspotify
+
+# Step 5: Configure raspotify (optional)
+echo "Step 5: Configuring raspotify (optional)..."
+echo "You can customize your Raspotify settings by editing the configuration file."
+echo "To edit the configuration file, run the following command:"
+echo "sudo nano /etc/raspotify/conf"
+echo "Inside the configuration file, you can modify settings such as the device name and bitrate."
+echo "Remember to save your changes (CTRL + X, Y, ENTER) and restart the raspotify service (Step 6) after making any modifications."
+
+# Step 6: Restart the raspotify service
+echo "Step 6: Restarting the raspotify service..."
+sudo systemctl restart raspotify
+
+echo "Raspotify setup completed. You can now connect to your Raspberry Pi via Spotify Connect."
+
+cd /usr/src/
+wget https://github.com/Brownster/HA-Satellite
+
+# Reboot the satellite
+echo " rebooting the server"
+sudo reboot
