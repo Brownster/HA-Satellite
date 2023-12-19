@@ -1,46 +1,52 @@
 #!/bin/bash
-# this script attemts to install chromium in kiosk mode HA satellite for voice and spotify connect.
-# Step 1: Update and upgrade the system
+echo "this script attemts to install chromium in kiosk mode HA satellite for voice and spotify connect."
+echo"⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠤⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⠀⢀⠎⠀⠀⠀⠘⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⢠⣾⡖⢦⣰⣿⢲⠸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⢨⠻⢷⣟⠙⠿⠞⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⢸⠦⠤⠷⠶⠶⠂⠀⢸⠀⠀⠀⠀⠀⠀⢀⢀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⡆⡄⢸⠀⠀⠀⠀⠀⢠⠃⢸⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⡇⡇⢸⣇⡀⠀⠀⡠⠁⢠⠃⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⣸⠃⢻⠈⠈⠉⢙⣳⣥⣄⣀⠔⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⠸⡆⠀⠀⠰⣧⣶⠌⠂⠀⠀⠉⠁⠀⠀⠉⠳⡄⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⠀⠹⢦⣀⣀⣀⡀⠀⢀⣀⣀⡀⠀⢀⣀⡠⠚⠀⠀⠀⠀⠀⠀"⠀
+echo"⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠉⡹⠉⠉⠉⠉⢉⠇⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⠰⡉⠑⠁⢠⠃⠀⠀⣟⠓⠋⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+echo"⠀⠀⠀⠀⠀⠀⠀⠈⠛⠒⠁⠀⠀⠀⠈⠓⠒⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+# Update and upgrade the system
 echo "Step 1: Updating and upgrading the system..."
 sudo apt update
 sudo apt upgrade -y
 sudo apt-get install --no-install-recommends git python3-venv
 
-# Step 2: Install Chromium
-echo "Step 2: Installing Chromium..."
+################ INSTALL CHROMIUM IN KIOSK MODE #######################
+# Install Chromium
+echo "Installing Chromium..."
 sudo apt install chromium-browser -y
 
-# Step 3: Create a script to launch Chromium in kiosk mode
-echo "Step 3: Creating a script to launch Chromium in kiosk mode..."
-cat <<EOF > /home/pi/start-chromium.sh
+# Create a script to launch Chromium in kiosk mode
+echo "Creating a script to launch Chromium in kiosk mode..."
+cat <<EOF > /usr/src/chromium/start-chromium.sh
 # #!/bin/bash
-chromium-browser --kiosk --no-first-run http://homeassistant.local:8123
-EOF
+chromium-browser --kiosk --no-first-run http://127.0.0.1:8000 & florence
+chmod +x /usr/src/chromium/start-chromium.sh
 
-# Make the script executable
-chmod +x /home/pi/start-chromium.sh
-
-# Step 4: Set up Debug Mode (Optional)
+# Set up Debug Mode (Optional)
 echo "Step 4: Setting up Debug Mode (Optional)..."
 # To enable debugging, you can modify the script to run Chromium with remote debugging enabled:
 # Uncomment the following lines if you want to enable debugging.
-# cat <<EOF >> /home/pi/start-chromium.sh
+# cat <<EOF >> /usr/src/chromium/start-chromium.sh
 # #!/bin/bash
 # chromium-browser --kiosk --remote-debugging-port=9222 http://homeassistant.local:8123
 # EOF
 
-# Step 5: Autostart Chromium
+#  Autostart Chromium
 echo "Step 5: Adding Chromium to autostart..."
 # Add the script to the LXDE autostart file
-echo "@/home/pi/start-chromium.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+echo "@/usr/src/chromium/start-chromium.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 
-# Step 6: Reboot the Raspberry Pi
-echo "Chromium setup completed. Rebooting the Raspberry Pi..."
-# Reboot the Raspberry Pi to apply changes
-sudo reboot
-
-
-
+############# INSTALL WYOMING ######################
 #clone the wyoming-satellite repository
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
@@ -148,22 +154,24 @@ sudo systemctl enable --now wyoming-satellite.service
 echo "Wyoming Satellite service is now running."
 echo "You can check the logs with: journalctl -u wyoming-satellite.service -f"
 
-######## INSTALL SPOTIFY CONNECT ~~
-# Step 1: Install required packages
+
+
+######## INSTALL SPOTIFY CONNECT ################
+#  Install required packages
 echo "Step 1: Installing required packages..."
 sudo apt install -y apt-transport-https curl
 
-# Step 2: Add GPG key and repository for raspotify
+#  Add GPG key and repository for raspotify
 echo "Step 2: Adding GPG key and repository for raspotify..."
 curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo tee /usr/share/keyrings/raspotify-archive-keyrings.asc >/dev/null
 echo 'deb [signed-by=/usr/share/keyrings/raspotify-archive-keyrings.asc] https://dtcooper.github.io/raspotify raspotify main' | sudo tee /etc/apt/sources.list.d/raspotify.list
 
-# Step 3: Install raspotify package
+#  Install raspotify package
 echo "Step 3: Installing raspotify package..."
 sudo apt update
 sudo apt install -y raspotify
 
-# Step 4: Configure raspotify (optional)
+#  Configure raspotify (optional)
 echo "Step 4: Configuring raspotify (optional)..."
 echo "You can customize your Raspotify settings by editing the configuration file."
 echo "To edit the configuration file, run the following command:"
@@ -171,13 +179,16 @@ echo "sudo nano /etc/raspotify/conf"
 echo "Inside the configuration file, you can modify settings such as the device name and bitrate."
 echo "Remember to save your changes (CTRL + X, Y, ENTER) and restart the raspotify service (Step 6) after making any modifications."
 
-# Step 5: Restart the raspotify service
+# Restart the raspotify service
 echo "Step 5: Restarting the raspotify service..."
 sudo systemctl restart raspotify
 
 echo "Raspotify setup completed. You can now connect to your Raspberry Pi via Spotify Connect."
 
-###### Install scripts for MQTT etc and make them services.
+
+
+################## Install scripts for MQTT etc and make them services.#######################
+
 cd /usr/src
 wget https://github.com/Brownster/HA-Satellite
 cd /usr/src/HA-Satellite/scripts
@@ -229,9 +240,9 @@ for script in "${python_scripts[@]}"; do
     create_service "$script"
 done
 
-# Create a script to start a Python HTTP server and configure it as a systemd service
+######### Create a script to start a Python HTTP server and configure it as a systemd service #######
 
-# Step 1: Create the Python HTTP server script
+# Create the Python HTTP server script
 echo "Creating Python HTTP server script..."
 cat <<EOF > /usr/src/HA-Satellite/scripts/start_web_server.sh
 #!/bin/bash
@@ -242,7 +253,7 @@ EOF
 # Make the script executable
 chmod +x /home/pi/start_web_server.sh
 
-# Step 2: Create a systemd service for the Python HTTP server
+# Create a systemd service for the Python HTTP server
 echo "Creating systemd service for the Python HTTP server..."
 cat <<EOF > /etc/systemd/system/web-server.service
 [Unit]
