@@ -1,6 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 import datetime
 import paho.mqtt.client as mqtt
+import pygame
+
+def play_alarm_sound():
+    pygame.mixer.init()
+    pygame.mixer.music.load("alarm_sound.mp3")  # Replace with the path to your alarm sound file
+    pygame.mixer.music.play()
+
 
 app = Flask(__name__)
 
@@ -61,10 +68,25 @@ def snooze_alarm():
     
     alarms = new_alarms
 
+   
     # Publish the updated list of alarms to the MQTT topic
     mqtt_client.publish(mqtt_topic, ','.join(alarms))
 
     return jsonify(success=True)
+
+@app.route('/check_alarm', methods=['GET'])
+def check_alarm():
+    global alarms
+    now = datetime.datetime.now().strftime("%H:%M")
+
+    triggered_alarms = [alarm for alarm in alarms if alarm == now]
+
+    if triggered_alarms:
+        play_alarm_sound()
+        alarms = [alarm for alarm in alarms if alarm != now]  # Remove triggered alarms
+        return jsonify(alarm=True)
+
+    return jsonify(alarm=False)
 
 @app.route('/stop_alarm', methods=['POST'])
 def stop_alarm():
