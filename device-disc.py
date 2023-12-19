@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import json
 
 mqtt_host = "your_mqtt_broker_ip"
 mqtt_port = 1883
@@ -17,10 +18,21 @@ brightness_config = {
     "unique_id": f"{device_unique_id}/brightness",
     "state_topic": device_state_topic,
     "unit_of_measurement": "%",
+    "device_class": "brightness",
 }
 
 client.publish(f"homeassistant/sensor/{device_name}/brightness/config", json.dumps(brightness_config), retain=True)
 
-# Similar steps for other devices (volume, on/off, kiosk page)
+# Publish discovery message for screen border color
+border_color_config = {
+    "name": "Screen Border Color",
+    "unique_id": f"{device_unique_id}/border_color",
+    "state_topic": device_state_topic,
+    "effect_list": ["blue", "red"],
+}
+
+client.publish(f"homeassistant/sensor/{device_name}/border_color/config", json.dumps(border_color_config), retain=True)
+
+# Similar steps to be added for other devices (volume, on/off, kiosk page)
 
 client.disconnect()
