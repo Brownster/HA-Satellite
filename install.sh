@@ -13,7 +13,7 @@ sudo apt install chromium-browser -y
 # Step 3: Create a script to launch Chromium in kiosk mode
 echo "Step 3: Creating a script to launch Chromium in kiosk mode..."
 cat <<EOF > /home/pi/start-chromium.sh
-#!/bin/bash
+# #!/bin/bash
 chromium-browser --kiosk --no-first-run http://homeassistant.local:8123
 EOF
 
@@ -149,38 +149,34 @@ echo "Wyoming Satellite service is now running."
 echo "You can check the logs with: journalctl -u wyoming-satellite.service -f"
 
 ######## INSTALL SPOTIFY CONNECT ~~
-# Step 1: Update and upgrade the system
-echo "Step 1: Updating and upgrading the system..."
-sudo apt update
-sudo apt upgrade -y
-
-# Step 2: Install required packages
-echo "Step 2: Installing required packages..."
+# Step 1: Install required packages
+echo "Step 1: Installing required packages..."
 sudo apt install -y apt-transport-https curl
 
-# Step 3: Add GPG key and repository for raspotify
-echo "Step 3: Adding GPG key and repository for raspotify..."
+# Step 2: Add GPG key and repository for raspotify
+echo "Step 2: Adding GPG key and repository for raspotify..."
 curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo tee /usr/share/keyrings/raspotify-archive-keyrings.asc >/dev/null
 echo 'deb [signed-by=/usr/share/keyrings/raspotify-archive-keyrings.asc] https://dtcooper.github.io/raspotify raspotify main' | sudo tee /etc/apt/sources.list.d/raspotify.list
 
-# Step 4: Install raspotify package
-echo "Step 4: Installing raspotify package..."
+# Step 3: Install raspotify package
+echo "Step 3: Installing raspotify package..."
 sudo apt update
 sudo apt install -y raspotify
 
-# Step 5: Configure raspotify (optional)
-echo "Step 5: Configuring raspotify (optional)..."
+# Step 4: Configure raspotify (optional)
+echo "Step 4: Configuring raspotify (optional)..."
 echo "You can customize your Raspotify settings by editing the configuration file."
 echo "To edit the configuration file, run the following command:"
 echo "sudo nano /etc/raspotify/conf"
 echo "Inside the configuration file, you can modify settings such as the device name and bitrate."
 echo "Remember to save your changes (CTRL + X, Y, ENTER) and restart the raspotify service (Step 6) after making any modifications."
 
-# Step 6: Restart the raspotify service
-echo "Step 6: Restarting the raspotify service..."
+# Step 5: Restart the raspotify service
+echo "Step 5: Restarting the raspotify service..."
 sudo systemctl restart raspotify
 
 echo "Raspotify setup completed. You can now connect to your Raspberry Pi via Spotify Connect."
+
 
 cd /usr/src/
 wget https://github.com/Brownster/HA-Satellite
