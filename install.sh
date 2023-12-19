@@ -26,7 +26,7 @@ echo "Step 4: Setting up Debug Mode (Optional)..."
 # Uncomment the following lines if you want to enable debugging.
 # cat <<EOF >> /home/pi/start-chromium.sh
 # #!/bin/bash
-# chromium-browser --kiosk --remote-debugging-port=9222 http://homeassistant.local:8123
+# chromium-browser --kiosk --enable-virtual-keyboard-in-kiosk-mode --remote-debugging-port=9222 http://homeassistant.local:8123
 # EOF
 
 # Step 5: Autostart Chromium
