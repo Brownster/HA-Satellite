@@ -22,7 +22,36 @@ echo "                                                                          
 echo "Step 1: Updating and upgrading the system..."
 sudo apt update
 sudo apt upgrade -y
-sudo apt-get install --no-install-recommends git python3-venv florence pygame lxde
+sudo apt-get dist-upgrade -y
+sudo apt-get clean
+sudo apt-get install --no-install-recommends git python3-venv florence pygame
+
+# Expand the filesystem
+#echo "Expanding the filesystem..."
+#sudo raspi-config --expand-rootfs
+
+# Update localization settings (optional, can be customized)
+#sudo raspi-config nonint do_change_locale en_gb.UTF-8
+#sudo raspi-config nonint do_change_timezone Europe/London
+#sudo raspi-config nonint do_configure_keyboard uk
+
+#Install LXDE
+echo "Installing LXDE..."
+
+# Install Xorg and LXDE
+sudo apt-get install --no-install-recommends xserver-xorg
+sudo apt-get install lxde-core lxappearance
+
+# Optional: Install LightDM (if you want a display manager / login screen)
+#sudo apt-get install lightdm
+
+# Enable SSH (Optional, if you want remote access)
+sudo raspi-config nonint do_ssh 0
+
+# Reboot the system
+#echo "Rebooting the system..."
+#sudo reboot
+
 
 ################ INSTALL CHROMIUM IN KIOSK MODE #######################
 # Install Chromium
