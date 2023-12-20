@@ -326,5 +326,5 @@ echo "A bit of clean up"
 sudo apt autoremove
 
 # Reboot the satellite
-echo " rebooting the server"
+echo "rebooting the server"
 sudo reboot
