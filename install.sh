@@ -18,7 +18,7 @@ echo"⠀⠀⠀⠀⠀⠀⠀⠈⠛⠒⠁⠀⠀⠀⠈⠓⠒⠁⠀⠀⠀⠀⠀⠀⠀
 echo "Step 1: Updating and upgrading the system..."
 sudo apt update
 sudo apt upgrade -y
-sudo apt-get install --no-install-recommends git python3-venv florence pygame
+sudo apt-get install --no-install-recommends git python3-venv florence pygame lxde
 
 ################ INSTALL CHROMIUM IN KIOSK MODE #######################
 # Install Chromium
@@ -48,10 +48,25 @@ echo "Step 4: Setting up Debug Mode (Optional)..."
 # chromium-browser --kiosk --remote-debugging-port=9222 http://homeassistant.local:8123
 # EOF
 
-#  Autostart Chromium
+##Auto Start Chromium
 echo "Step 5: Adding Chromium to autostart..."
+
+# Check if the LXDE autostart directory exists, create if it doesn't
+lxde_autostart_dir="/etc/xdg/lxsession/LXDE-pi"
+if [ ! -d "$lxde_autostart_dir" ]; then
+    echo "LXDE autostart directory does not exist. Creating directory..."
+    sudo mkdir -p "$lxde_autostart_dir"
+fi
+
+# Check if the autostart file exists, create if it doesn't
+autostart_file="$lxde_autostart_dir/autostart"
+if [ ! -f "$autostart_file" ]; then
+    echo "Autostart file does not exist. Creating file..."
+    sudo touch "$autostart_file"
+fi
+
 # Add the script to the LXDE autostart file
-echo "@/usr/src/chromium/start-chromium.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+echo "@/usr/src/chromium/start-c
 
 
 ############# INSTALL WYOMING ######################
