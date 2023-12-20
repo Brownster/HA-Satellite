@@ -122,27 +122,28 @@ fi
 # Function to record audio from a specific microphone device
 record_audio() {
   local device="$1"
-  echo "Recording audio from device: $device..."
-  arecord -D "$device" -r 16000 -c 1 -f S16_LE -t wav -d 5 test.wav
+  echo "Recording audio from device: plughw:$device..."
+  arecord -D "plughw:$device" -r 16000 -c 1 -f S16_LE -t wav -d 5 test.wav
 }
 
 # Function to play back recorded audio
 play_audio() {
   local device="$1"
-  echo "Playing back recorded audio on device: $device..."
-  aplay -D "$device" test.wav
+  echo "Playing back recorded audio on device: plughw:$device..."
+  aplay -D "plughw:$device" test.wav
 }
 
 # List available microphones
 echo "Listing available microphones:"
-arecord -L
+arecord -l
 
 # Prompt user to choose a microphone device
-echo "Enter the microphone device you want to use (e.g., plughw:CARD=seeed2micvoicec,DEV=0):"
+echo "Enter the card number and device number of the microphone you want to use (format: card_number,device_number):"
 read chosen_microphone
 
 # Record and play audio with the chosen microphone device
 record_audio "$chosen_microphone"
+play_audio "$chosen_microphone"
 
 # Check if there were problems during recording
 if [ $? -ne 0 ]; then
@@ -150,24 +151,22 @@ if [ $? -ne 0 ]; then
 
   # List available microphones again
   echo "Listing available microphones:"
-  arecord -L
+  arecord -l
 
   # Prompt user to choose a different microphone device
-  echo "Enter a different microphone device (or press Enter to use default):"
+  echo "Enter a different microphone device (format: card_number,device_number):"
   read new_microphone
 
   # Use the new microphone device for recording and playback
   if [ -n "$new_microphone" ]; then
     record_audio "$new_microphone"
+    play_audio "$new_microphone"
   else
     echo "Using default microphone device."
     record_audio "$chosen_microphone" # Using the originally chosen device
+    play_audio "$chosen_microphone"   # Using the originally chosen device for playback
   fi
 fi
-
-# Play back the recorded audio
-play_audio "$chosen_microphone" # Using the originally chosen device for playback
-
 
 
 # Run the satellite
