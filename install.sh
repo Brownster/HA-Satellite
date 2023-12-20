@@ -63,23 +63,16 @@ echo "Creating directory for Chromium start script..."
 sudo mkdir -p /usr/src/chromium
 
 # Create a script to launch Chromium in kiosk mode
-echo "Creating a script to launch Chromium in kiosk mode..."
-cat <<EOF > /usr/src/chromium/start-chromium.sh
+echo "Setting up script to start chromium in Debug Mode"
+# To enable debugging, you can modify the script to run Chromium with remote debugging enabled:
+# comment out the following lines if you want to enable debugging.
+cat <<EOF >> /usr/src/chromium/start-chromium.sh
 #!/bin/bash
-chromium-browser --kiosk --no-first-run http://127.0.0.1:8000 & florence
+chromium-browser --kiosk --remote-debugging-port=9222 http://127.0.0.1:8000 & florence
 EOF
 
 # Make the Chromium start script executable
 sudo chmod +x /usr/src/chromium/start-chromium.sh
-
-# Set up Debug Mode (Optional)
-echo "Step 4: Setting up Debug Mode (Optional)..."
-# To enable debugging, you can modify the script to run Chromium with remote debugging enabled:
-# Uncomment the following lines if you want to enable debugging.
-# cat <<EOF >> /usr/src/chromium/start-chromium.sh
-# #!/bin/bash
-# chromium-browser --kiosk --remote-debugging-port=9222 http://homeassistant.local:8123
-# EOF
 
 ##Auto Start Chromium
 echo "Step 5: Adding Chromium to autostart..."
