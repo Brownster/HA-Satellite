@@ -154,7 +154,7 @@ if [ $? -ne 0 ]; then
   arecord -l
 
   # Prompt user to choose a different microphone device
-  echo "Enter a different microphone device (format: card_number,device_number):"
+  echo "Enter a different microphone device with format of card_number,device_number:"
   read new_microphone
 
   # Use the new microphone device for recording and playback
