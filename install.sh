@@ -77,33 +77,23 @@ sudo chmod +x /usr/src/chromium/start-chromium.sh
 ##Auto Start Chromium
 echo "Step 5: Adding Chromium to autostart..."
 
-# Check if the LXDE autostart directory exists, create if it doesn't
+# Adding Chromium to Autostart
+echo "Adding Chromium to autostart..."
 lxde_autostart_dir="/etc/xdg/lxsession/LXDE-pi"
-if [ ! -d "$lxde_autostart_dir" ]; then
-    echo "LXDE autostart directory does not exist. Creating directory..."
-    sudo mkdir -p "$lxde_autostart_dir"
-fi
-
-# Check if the autostart file exists, create if it doesn't
-autostart_file="$lxde_autostart_dir/autostart"
-if [ ! -f "$autostart_file" ]; then
-    echo "Autostart file does not exist. Creating file..."
-    sudo touch "$autostart_file"
-fi
-
-# Add the script to the LXDE autostart file
-echo "@/usr/src/chromium/start-c
+sudo mkdir -p "$lxde_autostart_dir"
+echo "@/usr/src/chromium/start-chromium.sh" | sudo tee "$lxde_autostart_dir/autostart"
 
 
 ############# INSTALL WYOMING ######################
-#clone the wyoming-satellite repository
+echo "clone the wyoming-satellite repository"
+
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
-# Install drivers for ReSpeaker 2Mic or 4Mic HAT (if applicable)
+echo "Install drivers for ReSpeaker 2Mic or 4Mic HAT if applicable"
 cd wyoming-satellite/
 sudo bash etc/install-repeaker-drivers.sh
 
-# Install Wyoming Satellite
+echo "Install Wyoming Satellite"
 cd wyoming-satellite/
 python3 -m venv .venv
 source .venv/bin/activate
@@ -111,7 +101,7 @@ pip3 install --upgrade pip
 pip3 install --upgrade wheel setuptools
 pip3 install -f 'https://synesthesiam.github.io/prebuilt-apps/' -r requirements.txt -r requirements_extra.txt
 
-# Check if the installation was successful
+echo "Check if the installation was successful"
 if [ -f script/run ]; then
   echo "Installation completed successfully."
   echo "You can now run the satellite with: ./script/run --help"
@@ -119,21 +109,20 @@ else
   echo "Installation failed. Please check for errors."
 fi
 
-# Function to record audio from a specific microphone device
+echo "Function to record audio from a specific microphone device"
 record_audio() {
   local device="$1"
   echo "Recording audio from device: plughw:$device..."
   arecord -D "plughw:$device" -r 16000 -c 1 -f S16_LE -t wav -d 5 test.wav
 }
 
-# Function to play back recorded audio
+echo "Function to play back recorded audio"
 play_audio() {
   local device="$1"
   echo "Playing back recorded audio on device: plughw:$device..."
   aplay -D "plughw:$device" test.wav
 }
 
-# List available microphones
 echo "Listing available microphones:"
 arecord -l
 
