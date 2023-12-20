@@ -25,12 +25,19 @@ sudo apt-get install --no-install-recommends git python3-venv florence pygame
 echo "Installing Chromium..."
 sudo apt install chromium-browser -y
 
+# Create the directory for the Chromium start script
+echo "Creating directory for Chromium start script..."
+sudo mkdir -p /usr/src/chromium
+
 # Create a script to launch Chromium in kiosk mode
 echo "Creating a script to launch Chromium in kiosk mode..."
 cat <<EOF > /usr/src/chromium/start-chromium.sh
-# #!/bin/bash
+#!/bin/bash
 chromium-browser --kiosk --no-first-run http://127.0.0.1:8000 & florence
-chmod +x /usr/src/chromium/start-chromium.sh
+EOF
+
+# Make the Chromium start script executable
+sudo chmod +x /usr/src/chromium/start-chromium.sh
 
 # Set up Debug Mode (Optional)
 echo "Step 4: Setting up Debug Mode (Optional)..."
@@ -45,6 +52,7 @@ echo "Step 4: Setting up Debug Mode (Optional)..."
 echo "Step 5: Adding Chromium to autostart..."
 # Add the script to the LXDE autostart file
 echo "@/usr/src/chromium/start-chromium.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+
 
 ############# INSTALL WYOMING ######################
 #clone the wyoming-satellite repository
