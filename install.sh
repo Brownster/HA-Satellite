@@ -311,8 +311,11 @@ systemctl start web-server.service
 
 echo "Web server setup completed."
 
+echo "Setting next boot to gui"
+sudo systemctl set-default graphical.target
+
 echo "A bit of clean up"
-sudo apt autoremove
+sudo apt autoremove -y
 
 # Reboot the satellite
 echo "rebooting the server"
