@@ -219,13 +219,13 @@ echo "Step 3: Installing raspotify package..."
 sudo apt update
 sudo apt install -y raspotify
 
-#  Configure raspotify (optional)
-echo "Step 4: Configuring raspotify"
-echo "You can customize your Raspotify settings by editing the configuration file."
-echo "To edit the configuration file, run the following command:"
-echo "sudo nano /etc/raspotify/conf"
-echo "Inside the configuration file, you can modify settings such as the device name and bitrate."
-echo "Remember to save your changes (CTRL + X, Y, ENTER) and restart the raspotify service after making any modifications."
+#  Configure raspotify
+#echo "Step 4: Configuring raspotify"
+#echo "You can customize your Raspotify settings by editing the configuration file."
+#echo "To edit the configuration file, run the following command:"
+#echo "sudo nano /etc/raspotify/conf"
+#echo "Inside the configuration file, you can modify settings such as the device name and bitrate."
+#echo "Remember to save your changes CTRL + X, Y, ENTER and restart the raspotify service after making any modifications."
 
 # Restart the raspotify service
 echo "Step 5: Restarting the raspotify service..."
