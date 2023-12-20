@@ -26,15 +26,6 @@ sudo apt-get dist-upgrade -y
 sudo apt-get clean
 sudo apt-get install --no-install-recommends git python3-venv florence pygame git
 
-# Expand the filesystem
-#echo "Expanding the filesystem..."
-#sudo raspi-config --expand-rootfs
-
-# Update localization settings (optional, can be customized)
-#sudo raspi-config nonint do_change_locale en_gb.UTF-8
-#sudo raspi-config nonint do_change_timezone Europe/London
-#sudo raspi-config nonint do_configure_keyboard uk
-
 #Install LXDE
 echo "Installing LXDE..."
 
@@ -48,9 +39,6 @@ sudo apt-get install lxde-core lxappearance -y
 # Enable SSH (Optional, if you want remote access)
 sudo raspi-config nonint do_ssh 0
 
-# Reboot the system
-#echo "Rebooting the system..."
-#sudo reboot
 
 
 ################ INSTALL CHROMIUM IN KIOSK MODE #######################
