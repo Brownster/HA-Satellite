@@ -193,16 +193,12 @@ cd /usr/src
 wget https://github.com/Brownster/HA-Satellite
 cd /usr/src/HA-Satellite/scripts
 
-# Create and enable systemd services for Python scripts
-# Prompt the user for my_script_user
-echo "Enter the username for running the scripts:"
-read my_script_user
+# Create the 'hasatellite' group and user for running the scripts
+echo "Creating group and user 'hasatellite' for running the scripts..."
+sudo groupadd -f hasatellite
+sudo useradd -r -M -g hasatellite -s /bin/false hasatellite
 
-# Prompt the user for my_script_group
-echo "Enter the group name for running the scripts:"
-read my_script_group
-
-# Create systemd services for Python scripts with user and group values
+# Create systemd services for Python scripts with 'hasatellite' user and group
 create_service() {
     script_name="$1"
     service_name="${script_name%.py}"  # Remove the .py extension to create the service name
@@ -218,8 +214,8 @@ Wants=network.target
 [Service]
 ExecStart=/usr/bin/python3 "$PWD/$script_name"
 Restart=always
-User=$my_script_user
-Group=$my_script_group
+User=hasatellite
+Group=hasatellite
 WorkingDirectory=$PWD
 StandardOutput=journal
 
