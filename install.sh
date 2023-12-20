@@ -138,7 +138,7 @@ echo "Listing available microphones:"
 arecord -l
 
 # Prompt user to choose a microphone device
-echo "Enter the card number and device number of the microphone you want to use (format: card_number,device_number):"
+echo "Enter the card number and device number of the microphone you want to use format of card_number,device_number:"
 read chosen_microphone
 
 # Record and play audio with the chosen microphone device
