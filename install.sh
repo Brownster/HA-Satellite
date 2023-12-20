@@ -24,7 +24,7 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get clean
-sudo apt-get install --no-install-recommends git python3-venv florence pygame
+sudo apt-get install --no-install-recommends git python3-venv florence pygame git
 
 # Expand the filesystem
 #echo "Expanding the filesystem..."
@@ -227,7 +227,7 @@ echo "Raspotify setup completed. You can now connect to your Raspberry Pi via Sp
 ################## Install scripts for MQTT etc and make them services.#######################
 
 cd /usr/src
-wget https://github.com/Brownster/HA-Satellite
+sudo git clone https://github.com/Brownster/HA-Satellite
 cd /usr/src/HA-Satellite/scripts
 
 # Create the 'hasatellite' group and user for running the scripts
