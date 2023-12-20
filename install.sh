@@ -322,6 +322,9 @@ systemctl start web-server.service
 
 echo "Web server setup completed."
 
+echo "A bit of clean up"
+sudo apt auto-remove
+
 # Reboot the satellite
 echo " rebooting the server"
 sudo reboot
