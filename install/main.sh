@@ -2,6 +2,7 @@
 
 # Main installation script
 echo "Installation script for multiple components. Please select an option:"
+echo "0. Intsall updates and despendancies"
 echo "1. Install LXDE"
 echo "2. Install Chromium in Kiosk Mode"
 echo "3. Install Wyoming Satellite"
@@ -10,10 +11,11 @@ echo "5. Setup MQTT Services"
 echo "6. Setup Python HTTP Server"
 echo "7. Clean up and reboot"
 echo "8. Install all components"
-echo "Enter your choice (1-8): "
+echo "Enter your choice (0-8): "
 read choice
 
 case $choice in
+  0) sh update.sh;;
   1) sh install_lxde.sh;;
   2) sh install_chromium_kiosk.sh;;
   3) sh install_wyoming_satellite.sh;;
