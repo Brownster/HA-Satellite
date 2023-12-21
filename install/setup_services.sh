@@ -2,7 +2,9 @@
 ################## Install scripts for MQTT etc and make them services.#######################
 
 cd /usr/src
-sudo git clone https://github.com/Brownster/HA-Satellite
+if [ ! -d "HA-Satellite" ]; then
+    sudo git clone https://github.com/Brownster/HA-Satellite
+fi
 cd /usr/src/HA-Satellite/scripts
 
 # Create the 'hasatellite' group and user for running the scripts
