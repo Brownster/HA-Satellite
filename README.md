@@ -29,8 +29,8 @@ Enter your choice (0-9):
 
 
 Here's a summary of what this script does:
-    It give you the options to perform
-    updates and upgrades the system.
+    It give you the options to perform updates and upgrades the system.
+    
     Install Chromium in kiosk mode.
     Create a script to launch Chromium in kiosk mode.
     Optionally, it sets up debugging for Chromium.
