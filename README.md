@@ -1,5 +1,5 @@
 # HA-Satellite
-The aim is a home assistant satellite with voice intergration and dashboard also spotify connect and alarm clock
+The aim is a home assistant satellite with voice intergration and dashboard also spotify connect and alarm clock all with some kind of control via mqtt.
 
 
 INSTALL SCRIPT
@@ -10,9 +10,23 @@ login to raspberry pi and run the following
 command 1:   sudo wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && sudo bash install.sh && cd /usr/src/HA-Satellite/install && sudo bash main.sh
 
 
+You should be greeted with:
+
+Installation script for multiple components. Please select an option:
+0. Install updates and dependencies
+1. Install LXDE
+2. Install Chromium in Kiosk Mode
+3. Install Wyoming Satellite
+4. Install Spotify Connect
+5. Setup Services
+6. Setup Python HTTP Server
+7. Clean up and reboot
+8. Install all components
+9. Exit
+Enter your choice (0-9):
+
 
 Here's a summary of what this script does:
-
     It give you the options to perform
     updates and upgrades the system.
     Install Chromium in kiosk mode.
