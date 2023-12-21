@@ -8,11 +8,13 @@ sudo apt install chromium-browser -y
 echo "Creating directory for Chromium start script..."
 sudo mkdir -p /usr/src/chromium
 
-# Create a script to launch Chromium in kiosk mode
+# Create a script to launch Chromium in kiosk mode with mobile user agent
 echo "Setting up script to start Chromium in kiosk mode"
 cat <<EOF > /usr/src/chromium/start-chromium.sh
 #!/bin/bash
-chromium-browser --kiosk --remote-debugging-port=9222 http://127.0.0.1:8000
+# Example user agent of a tablet device
+USER_AGENT="Mozilla/5.0 (Linux; Android 8.0; Pixel C Build/OPR1.170623.032) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
+chromium-browser --kiosk --user-agent="$USER_AGENT" --remote-debugging-port=9222 http://127.0.0.1:8000
 EOF
 
 # Make the Chromium start script executable
