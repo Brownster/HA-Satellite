@@ -3,22 +3,27 @@ The aim is a home assistant satellite with voice intergration and dashboard also
 
 
 INSTALL SCRIPT
-includes prompts to ask the user for my_script_user and my_script_group values. These values will be used when creating systemd services for the Python scripts later in the script.
+install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
+plugin your usb mic / speakers / hats etc
+login to raspberry pi 
+wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && chmod +x install.sh && sudo bash install.sh
+
 
 Here's a summary of what this script does:
 
-    It updates and upgrades the system.
-    Installs Chromium in kiosk mode.
-    Creates a script to launch Chromium in kiosk mode.
+    It give you the options to perform
+    updates and upgrades the system.
+    Install Chromium in kiosk mode.
+    Create a script to launch Chromium in kiosk mode.
     Optionally, it sets up debugging for Chromium.
-    Adds Chromium to autostart.
-    Clones the Wyoming Satellite repository.
-    Installs drivers and dependencies for Wyoming Satellite.
-    Prompts the user to choose a microphone device for recording audio.
-    Records and plays back audio to test the chosen microphone device.
+    Add Chromium to autostart.
+    Clone the Wyoming Satellite repository.
+    Install drivers and dependencies for Wyoming Satellite.
+    Prompt the user to choose a microphone device for recording audio.
+    Record and plays back audio to test the chosen microphone device.
     Runs the Wyoming Satellite with appropriate parameters.
-    Creates a systemd service for Wyoming Satellite.
-    Installs and configures Raspotify for Spotify Connect.
-    Prompts the user for my_script_user and my_script_group.
-    Creates systemd services for Python scripts with user and group values.
-    Reboots the server.
+    Create a systemd service for Wyoming Satellite.
+    Install and configures Raspotify for Spotify Connect.
+    Prompt the user for my_script_user and my_script_group.
+    Create systemd services for Python scripts with user and group values.
+    Reboot the server.
