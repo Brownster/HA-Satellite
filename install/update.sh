@@ -20,10 +20,15 @@ echo "an alarm clock and simple gui. With mqtt as to have some level of control 
 
 
 # Update and upgrade the system
-echo "Option 0: Updating and upgrading the system..."
+echo "Updating and upgrading the system..."
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get clean
-sudo apt-get install --no-install-recommends git python3-venv florence pygame git apache2
-pip install paho-mqtt playsound
+
+echo "Installing necessary packages..."
+sudo apt-get install --no-install-recommends git python3-venv python3 python3-pip apache2 onboard
+
+echo "Installing Python packages..."
+pip3 install paho-mqtt playsound
