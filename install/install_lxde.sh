@@ -11,3 +11,6 @@ sudo apt-get install lxde-core lxappearance -y
 
 # Enable SSH (Optional, if you want remote access)
 sudo raspi-config nonint do_ssh 0
+
+echo "Setting next boot to gui"
+sudo systemctl set-default graphical.target
