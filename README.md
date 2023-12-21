@@ -14,6 +14,7 @@ sudo wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.
 You should be greeted with:
 
 Installation script for multiple components. Please select an option:
+
 0. Install updates and dependencies
 1. Install LXDE
 2. Install Chromium in Kiosk Mode
