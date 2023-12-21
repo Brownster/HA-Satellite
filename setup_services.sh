@@ -1,3 +1,4 @@
+#!/bin/bash
 ################## Install scripts for MQTT etc and make them services.#######################
 
 cd /usr/src
