@@ -20,4 +20,4 @@ git clone $REPO_URL
 chmod +x $REPO_DIR/install/*.sh
 
 # Run main.sh with elevated privileges
-sudo bash $REPO_DIR/install/main.sh
+#sudo bash $REPO_DIR/install/main.sh
