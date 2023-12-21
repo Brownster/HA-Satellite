@@ -5,7 +5,7 @@ import pygame
 
 def play_alarm_sound():
     pygame.mixer.init()
-    pygame.mixer.music.load("alarm_sound.mp3")  # Replace with the path to your alarm sound file
+    pygame.mixer.music.load("/usr/src/HA-Satellite/scripts/static/alarm.mp3")  # Replace with the path to your alarm sound file
     pygame.mixer.music.play()
 
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def index():
     return render_template('clock-index.html', alarms=alarms)
 
 # Replace with the path to the file where you want to store the alarms
-ALARMS_FILE = 'alarms.json'
+ALARMS_FILE = '/usr/src/HA-Satellite/scripts/data/alarms.json'
 
 def save_alarms_to_file(alarms, file_path=ALARMS_FILE):
     with open(file_path, 'w') as f:
