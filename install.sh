@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd /usr/src/
 # The URL of the GitHub repository
 REPO_URL="https://github.com/Brownster/HA-Satellite.git"
 # The directory name that GitHub will clone into
