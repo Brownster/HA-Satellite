@@ -4,6 +4,7 @@ The aim is a home assistant satellite with voice intergration and dashboard also
 
 INSTALL SCRIPT
 install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
+https://www.raspberrypi.com/documentation/computers/getting-started.html
 plugin your usb mic / speakers / hats etc
 login to raspberry pi and run the following
 
