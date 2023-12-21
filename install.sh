@@ -15,6 +15,3 @@ fi
 
 # Clone the repository
 git clone $REPO_URL
-
-# Change directory to the repository
-cd $REPO_DIR/install
