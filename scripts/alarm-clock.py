@@ -119,16 +119,6 @@ def check_alarm():
 
     return jsonify(alarm=False)
 
-@app.route('/stop_alarm', methods=['POST'])
-def stop_alarm():
-    global alarms
-    alarms = []  # Clear all alarms
-
-    # Publish the alarm stop signal to the MQTT topic
-    mqtt_client.publish(mqtt_topic, "stop")
-
-    return jsonify(success=True)
-
 # MQTT Message Handler
 def on_message(client, userdata, message):
     global alarms
