@@ -1,7 +1,7 @@
 import os
 import paho.mqtt.client as mqtt
 
-mqtt_host = "your_mqtt_broker_ip"
+mqtt_host = "192.168.0.21"
 mqtt_port = 1883
 topic = "homeassistant/your_screen/state"
 border_topic = "homeassistant/your_screen/border"  # Define a new topic for setting the border

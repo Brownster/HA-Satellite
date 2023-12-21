@@ -1,10 +1,9 @@
 import paho.mqtt.client as mqtt
 import json
 
-mqtt_host = "your_mqtt_broker_ip"
+mqtt_host = "192.168.0.21"
 mqtt_port = 1883
-
-client = mqtt.Client()
+client = mqtt.Client(client_id="HA-Satellite-1")
 client.connect(mqtt_host, mqtt_port)
 
 # Define device information
