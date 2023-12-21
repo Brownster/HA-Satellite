@@ -26,7 +26,7 @@ sudo apt upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get clean
 sudo apt-get install --no-install-recommends git python3-venv florence pygame git apache2
-pip install mqtt
+pip install paho-mqtt
 
 #Install LXDE
 echo "Installing LXDE..."
