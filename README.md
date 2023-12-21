@@ -5,8 +5,9 @@ The aim is a home assistant satellite with voice intergration and dashboard also
 INSTALL SCRIPT
 install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
 plugin your usb mic / speakers / hats etc
-login to raspberry pi 
-wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && chmod +x install.sh && sudo bash install.sh
+login to raspberry pi and run the following
+
+command:    wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && chmod +x install.sh && sudo bash install.sh
 
 
 Here's a summary of what this script does:
