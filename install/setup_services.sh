@@ -9,8 +9,14 @@ cd /usr/src/HA-Satellite/scripts
 
 # Create the 'hasatellite' group and user for running the scripts
 echo "Creating group and user 'hasatellite' for running the scripts..."
-sudo groupadd -f hasatellite
-sudo useradd -r -M -g hasatellite -s /bin/false hasatellite
+if ! id "hasatellite" &>/dev/null; then
+    echo "Creating group and user 'hasatellite' for running the scripts..."
+    sudo groupadd -f hasatellite
+    sudo useradd -r -M -g hasatellite -s /bin/false hasatellite
+else
+    echo "User 'hasatellite' already exists. Skipping user creation."
+fi
+
 
 # Create systemd services for Python scripts with 'hasatellite' user and group
 create_service() {
