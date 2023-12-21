@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings - HA Voice Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px; /* Larger for touch screens */
+            margin: 20px 0; /* Adjusted spacing */
+        }
+
+        .container {
+            margin: 20px;
+            padding: 20px;
+        }
+
+        button {
+            display: inline-block; /* Center button */
+            margin-top: 30px;
+            padding: 20px 40px; /* Larger padding for easier touch */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px; /* Larger font size */
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        label, input, select {
+            font-size: 18px; /* Larger font size for touch screens */
+            margin: 10px 0; /* Spacing for touch targets */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Settings</h1>
+    <div class="container">
+        <form id="settingsForm">
+            <!-- Placeholder for future settings -->
+            <div class="form-group">
+                <label for="setting1">Setting 1:</label>
+                <input type="text" id="setting1" name="setting1">
+            </div>
+
+            <div class="form-group">
+                <label for="setting2">Setting 2:</label>
+                <select id="setting2" name="setting2">
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+            </div>
+
+            <!-- More settings can be added here -->
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('settingsForm').onsubmit = function(event) {
+            event.preventDefault();
+            // Placeholder for saving settings logic
+            alert('Settings saved!');
+        };
+    </script>
+</body>
+</html>
