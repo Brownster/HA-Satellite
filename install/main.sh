@@ -23,7 +23,8 @@ case $choice in
   5) sh setup_mqtt_services.sh;;
   6) sh setup_python_http_server.sh;;
   7) sh finish_and_reboot.sh;;
-  8) sh install_lxde.sh
+  8) sh update.sh
+     sh install_lxde.sh
      sh install_chromium_kiosk.sh
      sh install_wyoming_satellite.sh
      sh install_spotify_connect.sh
@@ -31,5 +32,5 @@ case $choice in
      sh setup_python_http_server.sh
      sh finish_and_reboot.sh
      echo "All components have been installed.";;
-  *) echo "Invalid option. Please enter a number between 1 and 7.";;
+  *) echo "Invalid option. Please enter a number between 0 and 8.";;
 esac
