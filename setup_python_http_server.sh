@@ -1,3 +1,4 @@
+#!/bin/bash
 ######### Create a script to start a Python HTTP server and configure it as a systemd service #######
 sudo cp /usr/src/HA-Satellite/templates/home-index.html /var/www/html/ha-home/index.html
 
