@@ -1,11 +1,12 @@
 # HA-Satellite
-The aim is a home assistant satellite with voice intergration and dashboard also spotify connect and alarm clock all with some kind of control via mqtt.
+The aim (that is nowhere complete) is a home assistant satellite with voice intergration and dashboard also spotify connect and alarm clock all with some kind of control via mqtt.
 
 
 INSTALL SCRIPT
 install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
 https://www.raspberrypi.com/documentation/computers/getting-started.html
-plugin your usb mic / speakers / hats etc
+plugin your usb mic / speakers / hats etc. I am currently testing with usb headset as the hat is out stock may go with usb conference mic with simple usb speaker for assistant and a audio dac hat for spotify.... well thats the current plan.
+
 login to raspberry pi and run the following
 
 command 1:   
