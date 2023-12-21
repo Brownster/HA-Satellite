@@ -14,3 +14,6 @@ sudo raspi-config nonint do_ssh 0
 
 echo "Setting next boot to gui"
 sudo systemctl set-default graphical.target
+#make sure its not running - comment out if you want lightdm
+sudo systemctl disable lightdm
+
