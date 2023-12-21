@@ -53,43 +53,26 @@ echo "Creating directory for Chromium start script..."
 sudo mkdir -p /usr/src/chromium
 
 # Create a script to launch Chromium in kiosk mode
-echo "Setting up script to start chromium in Debug Mode"
-# To enable debugging, you can modify the script to run Chromium with remote debugging enabled:
-# comment out the following lines if you want to enable debugging.
-cat <<EOF >> /usr/src/chromium/start-chromium.sh
+echo "Setting up script to start Chromium in kiosk mode"
+cat <<EOF > /usr/src/chromium/start-chromium.sh
 #!/bin/bash
-chromium-browser --kiosk --remote-debugging-port=9222 http://127.0.0.1:8000 & florence
+chromium-browser --kiosk --remote-debugging-port=9222 http://127.0.0.1:8000
 EOF
 
 # Make the Chromium start script executable
 sudo chmod +x /usr/src/chromium/start-chromium.sh
 
-##Auto Start Chromium
-echo "Step 5: Adding Chromium to autostart..."
+# Auto Start Chromium in Kiosk Mode
+echo "Setting up Chromium to start in kiosk mode on boot..."
 
-# Adding Chromium to Autostart
-echo "Adding Chromium to autostart..."
-cp /etc/xdg/lxsession/LXDE-pi/autostart ~/.config/lxsession/LXDE-pi/
-# Define the commands to add to the autostart file
-AUTOSTART_CMDS=(
-"@lxpanel --profile LXDE-pi"
-"@pcmanfm --desktop --profile LXDE-pi"
-"#@xscreensaver -no-splash"
-"point-rpi"
-"chromium --start http://127.0.0.1:8000/"
-"@chromium-browser  --start http://127.0.0.1:8000/"
-"@florence -d"
-)
+# Ensure the autostart directory exists
+mkdir -p ~/.config/lxsession/LXDE-pi/
 
-# Write commands to the autostart file
-for cmd in "${AUTOSTART_CMDS[@]}"; do
-    echo "$cmd" >> ~/.config/lxsession/LXDE-pi/autostart
-done
-
-# Additional modes (uncomment the line you need)
-#echo "@chromium-browser --app" >> ~/.config/lxsession/LXDE-pi/autostart
-#echo "@chromium-browser --start-fullscreen" >> ~/.config/lxsession/LXDE-pi/autostart
-echo "@chromium-browser --kiosk" >> ~/.config/lxsession/LXDE-pi/autostart
+# Write the commands to the autostart file
+echo "@lxpanel --profile LXDE-pi" > ~/.config/lxsession/LXDE-pi/autostart
+echo "@pcmanfm --desktop --profile LXDE-pi" >> ~/.config/lxsession/LXDE-pi/autostart
+echo "@/usr/src/chromium/start-chromium.sh" >> ~/.config/lxsession/LXDE-pi/autostart
+echo "@florence -d" >> ~/.config/lxsession/LXDE-pi/autostart
 
 
 
