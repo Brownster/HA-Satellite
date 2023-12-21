@@ -15,3 +15,9 @@ fi
 
 # Clone the repository
 git clone $REPO_URL
+
+# Change permissions for all .sh files in the install directory
+chmod +x $REPO_DIR/install/*.sh
+
+# Run main.sh with elevated privileges
+sudo bash $REPO_DIR/install/main.sh
