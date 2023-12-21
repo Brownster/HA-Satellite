@@ -8,20 +8,38 @@ def play_alarm_sound():
     pygame.mixer.music.load("alarm_sound.mp3")  # Replace with the path to your alarm sound file
     pygame.mixer.music.play()
 
-
 app = Flask(__name__)
 
-# Store multiple alarm times in a list
 alarms = []
 
-# MQTT Configuration
-mqtt_broker = "192.168.0.21"  # Replace with your MQTT broker's address
-mqtt_port = 1883  # Replace with your MQTT broker's port
+mqtt_broker = "192.168.0.21"
+mqtt_port = 1883
 mqtt_topic = "home/alarm"
 
-# MQTT Client Setup
 mqtt_client = mqtt.Client("AlarmClock")
-mqtt_client.connect(mqtt_broker, mqtt_port)
+
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Connected to MQTT Broker!")
+    else:
+        print("Failed to connect, return code %d\n", rc)
+
+mqtt_client.on_connect = on_connect
+mqtt_client.subscribe(mqtt_topic)
+
+def on_message(client, userdata, message):
+    global alarms
+    alarm_list = message.payload.decode("utf-8").split(',')
+    alarms = alarm_list
+
+mqtt_client.on_message = on_message
+
+def start_mqtt_client():
+    try:
+        mqtt_client.connect(mqtt_broker, mqtt_port)
+        mqtt_client.loop_start()
+    except Exception as e:
+        print(f"Error connecting to MQTT broker: {e}")
 
 @app.route('/')
 def index():
@@ -32,23 +50,17 @@ def set_alarm():
     global alarms
     new_alarm = request.form['alarmTime']
     alarms.append(new_alarm)
-
-    # Publish the updated list of alarms to the MQTT topic
     mqtt_client.publish(mqtt_topic, ','.join(alarms))
-
     return jsonify(success=True)
 
 @app.route('/check_alarm', methods=['GET'])
-def check_alarm():
+def check_current_alarm():
     global alarms
     now = datetime.datetime.now().strftime("%H:%M")
-
     triggered_alarms = [alarm for alarm in alarms if alarm == now]
-
     if triggered_alarms:
-        alarms = [alarm for alarm in alarms if alarm != now]  # Remove triggered alarms
+        alarms = [alarm for alarm in alarms if alarm != now]
         return jsonify(alarm=True)
-    
     return jsonify(alarm=False)
 
 @app.route('/snooze_alarm', methods=['POST'])
@@ -113,5 +125,5 @@ def get_alarms():
     return jsonify(alarms=alarms)
 
 if __name__ == '__main__':
+    start_mqtt_client()
     app.run(debug=True)
-    mqtt_client.loop_start()  # Start MQTT client loop
