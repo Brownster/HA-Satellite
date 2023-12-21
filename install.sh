@@ -138,17 +138,15 @@ if [ $? -ne 0 ]; then
   echo "Enter a different microphone device with format of card_number,device_number:"
   read new_microphone
 
-  # Use the new microphone device for recording and playback
-  if [ -n "$new_microphone" ]; then
-    record_audio "$new_microphone"
-    play_audio "$new_microphone"
-  else
-    echo "Using default microphone device."
-    record_audio "$chosen_microphone" # Using the originally chosen device
-    play_audio "$chosen_microphone"   # Using the originally chosen device for playback
-  fi
+# Use the new microphone device for recording and playback
+if [ -n "$new_microphone" ]; then
+  record_audio "$new_microphone"
+  play_audio "$new_microphone"
+else
+  echo "Using default microphone device."
+  record_audio "$chosen_microphone" # Using the originally chosen device
+  play_audio "$chosen_microphone"   # Using the originally chosen device for playback
 fi
-
 
 # Run the satellite
 echo "Starting the Wyoming Satellite..."
@@ -156,8 +154,9 @@ echo "Starting the Wyoming Satellite..."
   --debug \
   --name 'my satellite' \
   --uri 'tcp://0.0.0.0:10700' \
-  --mic-command 'arecord -D plughw:1,0 -r 16000 -c 1 -f S16_LE -t raw' \
-  --snd-command 'aplay -D plughw:1,0 -r 22050 -c 1 -f S16_LE -t raw' &
+  --mic-command "arecord -D plughw:$chosen_microphone -r 16000 -c 1 -f S16_LE -t raw" \
+  --snd-command "aplay -D plughw:$chosen_microphone -r 22050 -c 1 -f S16_LE -t raw" &
+
 
 # Create a systemd service for the satellite
 sudo tee /etc/systemd/system/wyoming-satellite.service > /dev/null <<EOL
@@ -168,7 +167,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=$PWD/script/run --name 'my satellite' --uri 'tcp://0.0.0.0:10700' --mic-command 'arecord -D plughw:card=1,DEV=0 -r 16000 -c 1 -f S16_LE -t raw' --snd-command 'aplay -D plughw:CARD=1,DEV=0 -r 22050 -c 1 -f S16_LE -t raw'
+ExecStart=$PWD/script/run --name 'my satellite' --uri 'tcp://0.0.0.0:10700' --mic-command 'arecord -D plughw:$chosen_microphone-r 16000 -c 1 -f S16_LE -t raw' --snd-command 'aplay -D plughw:$chosen_microphone-r 22050 -c 1 -f S16_LE -t raw'
 WorkingDirectory=$PWD
 Restart=always
 RestartSec=1
