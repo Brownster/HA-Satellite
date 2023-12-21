@@ -1,3 +1,4 @@
+#!/bin/bash
 ######## INSTALL SPOTIFY CONNECT ################
 #  Install required packages
 echo "Step 1: Installing required packages..."
