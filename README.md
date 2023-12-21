@@ -7,7 +7,7 @@ install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
 plugin your usb mic / speakers / hats etc
 login to raspberry pi and run the following
 
-command 1:    wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && chmod +x install.sh && sudo bash install.sh && cd HA-Satellite/install && sudo chmod +x *.sh  sudo bash ./main.sh
+command 1:   sudo wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && sudo bash install.sh && cd /usr/src/HA-Satellite/install && sudo bash main.sh
 
 
 
