@@ -1,3 +1,4 @@
+#!/bin/bash
 ############# INSTALL WYOMING ######################
 echo "clone the wyoming-satellite repository"
 
