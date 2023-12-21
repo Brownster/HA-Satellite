@@ -7,37 +7,46 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
         h1 {
             color: #333;
+            font-size: 24px; /* Larger for touch screens */
+            margin: 20px 0; /* Adjusted spacing */
         }
 
         div {
-            margin-top: 20px;
+            margin-top: 30px; /* More space between elements */
         }
 
         a {
-            margin: 10px;
+            display: inline-block;
+            margin: 20px; /* Larger margins for touch targets */
             text-decoration: none;
+            padding: 15px; /* Larger padding for touch targets */
         }
 
         img {
             border: 1px solid #ccc;
             padding: 5px;
             border-radius: 5px;
-            max-width: 150px;
-            max-height: 150px;
+            width: 120px; /* Set a minimum width */
+            height: auto; /* Maintain aspect ratio */
         }
 
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
+            display: inline-block; /* Center button */
+            margin-top: 30px;
+            padding: 20px 40px; /* Larger padding for easier touch */
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 18px; /* Larger font size */
+            text-align: center;
         }
 
         button:hover {
@@ -45,37 +54,37 @@
         }
 
         #datetime {
-            font-size: 18px;
-            margin-top: 20px;
+            font-size: 18px; /* Larger font size */
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to Your Home Assistant Satellite</h1>
     <div>
-        <a href="http://homeassistant.local"><img src="homeassistant.png" alt="Home Assitant"></a>
+        <a href="http://homeassistant.local"><img src="homeassistant.png" alt="Home Assistant"></a>
         <a href="http://127.0.0.1:8001"><img src="designer.png" alt="Alarm Clock"></a>
         <a href="http://klipper.local"><img src="klipper.png" alt="Printer"></a>
         <a href="https://netflix.com"><img src="netflix.jpg" alt="Netflix"></a>
         <a href="https://www.google.co.uk"><img src="google.png" alt="Google"></a>
         <a href="https://chat.openai.com"><img src="chatgpt.png" alt="Chat GPT"></a>
     </div>
-    <div id="datetime">
-        <script>
-            function changeURL(url) {
-                window.location.href = url;
-            }
-
-            function updateDateTime() {
-                var now = new Date();
-                var dateTimeString = now.toLocaleString();
-                document.getElementById("datetime").innerHTML = dateTimeString;
-            }
-
-            setInterval(updateDateTime, 1000); // Update every second
-            updateDateTime(); // Initial update
-        </script>
-    </div>
+    <div id="datetime"></div>
     <button onclick="changeURL('http://127.0.0.1/settings.html')">Settings</button>
+    
+    <script>
+        function changeURL(url) {
+            window.location.href = url;
+        }
+
+        function updateDateTime() {
+            var now = new Date();
+            var dateTimeString = now.toLocaleString();
+            document.getElementById("datetime").innerHTML = dateTimeString;
+        }
+
+        setInterval(updateDateTime, 1000); // Update every second
+        updateDateTime(); // Initial update
+    </script>
 </body>
 </html>
