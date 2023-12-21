@@ -173,8 +173,8 @@ echo "Starting the Wyoming Satellite..."
   --debug \
   --name 'my satellite' \
   --uri 'tcp://0.0.0.0:10700' \
-  --mic-command 'arecord -D plughw:CARD=seeed2micvoicec,DEV=0 -r 16000 -c 1 -f S16_LE -t raw' \
-  --snd-command 'aplay -D plughw:CARD=seeed2micvoicec,DEV=0 -r 22050 -c 1 -f S16_LE -t raw'
+  --mic-command 'arecord -D plughw:1,0 -r 16000 -c 1 -f S16_LE -t raw' \
+  --snd-command 'aplay -D plughw:1,0 -r 22050 -c 1 -f S16_LE -t raw'
 
 # Create a systemd service for the satellite
 sudo tee /etc/systemd/system/wyoming-satellite.service > /dev/null <<EOL
@@ -185,7 +185,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=$PWD/script/run --name 'my satellite' --uri 'tcp://0.0.0.0:10700' --mic-command 'arecord -D plughw:CARD=seeed2micvoicec,DEV=0 -r 16000 -c 1 -f S16_LE -t raw' --snd-command 'aplay -D plughw:CARD=seeed2micvoicec,DEV=0 -r 22050 -c 1 -f S16_LE -t raw'
+ExecStart=$PWD/script/run --name 'my satellite' --uri 'tcp://0.0.0.0:10700' --mic-command 'arecord -D plughw:card=1,DEV=0 -r 16000 -c 1 -f S16_LE -t raw' --snd-command 'aplay -D plughw:CARD=1,DEV=0 -r 22050 -c 1 -f S16_LE -t raw'
 WorkingDirectory=$PWD
 Restart=always
 RestartSec=1
