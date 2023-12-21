@@ -2,7 +2,9 @@
 
 # Function to display the menu
 show_menu() {
-    echo "Installation script for multiple components. Please select an option:"
+    echo "                                                                                  "
+    echo "                                                                                  "
+    echo "Installation script for Home Assistant HUB type of thing. Please select an option:"
     echo "0. Install updates and dependencies"
     echo "1. Install LXDE"
     echo "2. Install Chromium in Kiosk Mode"
