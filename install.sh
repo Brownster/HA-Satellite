@@ -67,9 +67,28 @@ echo "Step 5: Adding Chromium to autostart..."
 
 # Adding Chromium to Autostart
 echo "Adding Chromium to autostart..."
-lxde_autostart_dir="/etc/xdg/lxsession/LXDE-pi"
-sudo mkdir -p "$lxde_autostart_dir"
-echo "@/usr/src/chromium/start-chromium.sh" | sudo tee "$lxde_autostart_dir/autostart"
+cp /etc/xdg/lxsession/LXDE-pi/autostart ~/.config/lxsession/LXDE-pi/
+# Define the commands to add to the autostart file
+AUTOSTART_CMDS=(
+"@lxpanel --profile LXDE-pi"
+"@pcmanfm --desktop --profile LXDE-pi"
+"#@xscreensaver -no-splash"
+"point-rpi"
+"chromium --start http://127.0.0.1:8000/"
+"@chromium-browser  --start http://127.0.0.1:8000/"
+"@florence -d"
+)
+
+# Write commands to the autostart file
+for cmd in "${AUTOSTART_CMDS[@]}"; do
+    echo "$cmd" >> ~/.config/lxsession/LXDE-pi/autostart
+done
+
+# Additional modes (uncomment the line you need)
+#echo "@chromium-browser --app" >> ~/.config/lxsession/LXDE-pi/autostart
+#echo "@chromium-browser --start-fullscreen" >> ~/.config/lxsession/LXDE-pi/autostart
+echo "@chromium-browser --kiosk" >> ~/.config/lxsession/LXDE-pi/autostart
+
 
 
 ############# INSTALL WYOMING ######################
