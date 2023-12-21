@@ -45,13 +45,32 @@ def start_mqtt_client():
 def index():
     return render_template('clock-index.html', alarms=alarms)
 
+# Replace with the path to the file where you want to store the alarms
+ALARMS_FILE = 'alarms.json'
+
+def save_alarms_to_file(alarms, file_path=ALARMS_FILE):
+    with open(file_path, 'w') as f:
+        json.dump(alarms, f)
+
+# Modify the set_alarm function to save the alarms to file
 @app.route('/set_alarm', methods=['POST'])
 def set_alarm():
     global alarms
     new_alarm = request.form['alarmTime']
     alarms.append(new_alarm)
+    save_alarms_to_file(alarms)  # Save the updated list of alarms to file
     mqtt_client.publish(mqtt_topic, ','.join(alarms))
     return jsonify(success=True)
+
+# Modify the stop_alarm function to save the empty alarm list to file
+@app.route('/stop_alarm', methods=['POST'])
+def stop_alarm():
+    global alarms
+    alarms = []  # Clear all alarms
+    save_alarms_to_file(alarms)  # Save the empty list of alarms to file
+    mqtt_client.publish(mqtt_topic, "stop")
+    return jsonify(success=True)
+
 
 @app.route('/check_alarm', methods=['GET'])
 def check_current_alarm():
