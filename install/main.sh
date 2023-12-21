@@ -28,7 +28,7 @@ case $choice in
      sh install_chromium_kiosk.sh
      sh install_wyoming_satellite.sh
      sh install_spotify_connect.sh
-     sh setup_mqtt_services.sh
+     sh setup_services.sh
      sh setup_python_http_server.sh
      sh finish_and_reboot.sh
      echo "All components have been installed.";;
