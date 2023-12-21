@@ -20,7 +20,7 @@ case $choice in
   2) sh install_chromium_kiosk.sh;;
   3) sh install_wyoming_satellite.sh;;
   4) sh install_spotify_connect.sh;;
-  5) sh setup_mqtt_services.sh;;
+  5) sh setup_services.sh;;
   6) sh setup_python_http_server.sh;;
   7) sh finish_and_reboot.sh;;
   8) sh update.sh
