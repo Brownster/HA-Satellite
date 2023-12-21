@@ -30,4 +30,4 @@ mkdir -p ~/.config/lxsession/LXDE-pi/
 echo "@lxpanel --profile LXDE-pi" > ~/.config/lxsession/LXDE-pi/autostart
 echo "@pcmanfm --desktop --profile LXDE-pi" >> ~/.config/lxsession/LXDE-pi/autostart
 echo "@/usr/src/chromium/start-chromium.sh" >> ~/.config/lxsession/LXDE-pi/autostart
-echo "@florence -d" >> ~/.config/lxsession/LXDE-pi/autostart
+echo "@onboard -d" >> ~/.config/lxsession/LXDE-pi/autostart
