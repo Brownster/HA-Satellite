@@ -18,6 +18,3 @@ git clone $REPO_URL
 
 # Change directory to the repository
 cd $REPO_DIR/install
-
-# Run the main.sh script
-./main.sh
