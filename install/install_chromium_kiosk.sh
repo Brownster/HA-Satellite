@@ -19,13 +19,23 @@ EOF
 
 # Make the Chromium start script executable
 sudo chmod +x /usr/src/chromium/start-chromium.sh
-
-#cp /etc/xdg/lxsession/LXDE/autostart ~/.config/lxsession/LXDE/
-
-# Add Chromium start script to system-wide LXDE autostart
-echo "Adding Chromium start script to system-wide LXDE autostart..."
-{
-    echo "@/usr/src/chromium/start-chromium.sh"
-} | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
-
+@/usr/src/chromium/start-chromium.sh
 echo "Chromium installation and autostart configuration complete."
+
+# Ask for the username
+read -p "Enter your username: " username
+
+# Define the source and destination paths
+src="/etc/xdg/lxsession/LXDE/autostart"
+dest="/home/$username/.config/lxsession/LXDE/autostart"
+
+# Create the directory if it doesn't exist
+mkdir -p "$(dirname "$dest")"
+
+# Copy the autostart file
+cp "$src" "$dest"
+
+# Add the Chromium start command to the autostart file
+echo "@chromium-browser --noerrors --disable-session-crashed-bubble --disable-infobars --start-fullscreen --incognito https://www.yoursite.com" >> "$dest"
+#echo "@/usr/src/chromium/start-chromium.sh" >> "$dest"
+echo "Autostart file has been configured."
