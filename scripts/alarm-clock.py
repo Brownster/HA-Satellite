@@ -15,7 +15,7 @@ app = Flask(__name__)
 alarms = []
 
 # MQTT Configuration
-mqtt_broker = "mqtt.yourbroker.com"  # Replace with your MQTT broker's address
+mqtt_broker = "192.168.0.21"  # Replace with your MQTT broker's address
 mqtt_port = 1883  # Replace with your MQTT broker's port
 mqtt_topic = "home/alarm"
 
@@ -25,7 +25,7 @@ mqtt_client.connect(mqtt_broker, mqtt_port)
 
 @app.route('/')
 def index():
-    return render_template('index.html', alarms=alarms)
+    return render_template('clock-index.html', alarms=alarms)
 
 @app.route('/set_alarm', methods=['POST'])
 def set_alarm():
