@@ -20,7 +20,7 @@ EOF
 # Make the Chromium start script executable
 sudo chmod +x /usr/src/chromium/start-chromium.sh
 
-cp /etc/xdg/lxsession/LXDE/autostart ~/.config/lxsession/LXDE/
+#cp /etc/xdg/lxsession/LXDE/autostart ~/.config/lxsession/LXDE/
 
 # Add Chromium start script to system-wide LXDE autostart
 echo "Adding Chromium start script to system-wide LXDE autostart..."
