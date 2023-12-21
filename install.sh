@@ -25,7 +25,7 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get clean
-sudo apt-get install --no-install-recommends git python3-venv florence pygame git
+sudo apt-get install --no-install-recommends git python3-venv florence pygame git apache2
 
 #Install LXDE
 echo "Installing LXDE..."
@@ -282,6 +282,7 @@ for script in "${python_scripts[@]}"; do
 done
 
 ######### Create a script to start a Python HTTP server and configure it as a systemd service #######
+sudo cp /usr/src/HA-Satellite/templates/home-index.html /var/www/html/ha-home/index.html
 
 # Create the Python HTTP server script
 echo "Creating Python HTTP server script..."
@@ -292,7 +293,9 @@ python3 -m http.server 8000
 EOF
 
 # Make the script executable
-chmod +x /home/pi/start_web_server.sh
+sudo chown hasatsatellite:hasatsatellite /usr/src/HA-Satellite/scripts/start_web_server.sh
+chmod +x /usr/src/HA-Satellite/scripts/start_web_server.sh
+
 
 # Create a systemd service for the Python HTTP server
 echo "Creating systemd service for the Python HTTP server..."
@@ -304,8 +307,8 @@ After=network.target
 [Service]
 ExecStart=/usr/src/HA-Satellite/scripts/start_web_server.sh
 Restart=always
-User=pi
-Group=pi
+User=hasatellite
+Group=hasatellite
 
 [Install]
 WantedBy=multi-user.target
