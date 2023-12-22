@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 echo "this script is no where near complete but none the less attempts to install chromium in kiosk mode HA satellite for voice,"
 echo "spotify connect, a alarm clock and simple gui. With mqtt as to have some level of control over the assistants hardware"
 #                                                                                                      
@@ -53,7 +52,7 @@ while true; do
       3) bash install_wyoming_satellite.sh;;
       4) bash install_spotify_connect.sh;;
       5) bash setup_services.sh;;
-      6) bash setup_python_http_server.sh;;
+      6) bash setup_homepage_http_server.sh;;
       7) bash finish_and_reboot.sh;;
       8) bash update.sh
          bash install_lxde.sh
@@ -61,7 +60,7 @@ while true; do
          bash install_wyoming_satellite.sh
          bash install_spotify_connect.sh
          bash setup_services.sh
-         bash setup_python_http_server.sh
+         bash setup_homepage_http_server.sh
          bash finish_and_reboot.sh
          echo "All components have been installed.";;
       9) echo "Exiting script."
