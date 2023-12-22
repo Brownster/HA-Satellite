@@ -1,15 +1,16 @@
 #!/bin/bash
 ############# INSTALL WYOMING ######################
 echo "clone the wyoming-satellite repository"
-
+# Get the FQDN of the current machine
+fqdn=$(hostname -f)
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
 echo "Install drivers for ReSpeaker 2Mic or 4Mic HAT if applicable"
-cd wyoming-satellite/
+mkdir -p /usr/src/HA-Satellite/wyoming-satellite/
+cd /usr/src/HA-Satellite/wyoming-satellite/
 sudo bash etc/install-repeaker-drivers.sh
 
 echo "Install Wyoming Satellite"
-cd wyoming-satellite/
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install --upgrade pip
@@ -75,7 +76,7 @@ fi
 echo "Starting the Wyoming Satellite..."
 ./script/run \
   --debug \
-  --name 'my satellite' \
+  --name '$fqdn' \
   --uri 'tcp://0.0.0.0:10700' \
   --mic-command "arecord -D plughw:$chosen_microphone -r 16000 -c 1 -f S16_LE -t raw" \
   --snd-command "aplay -D plughw:$chosen_microphone -r 22050 -c 1 -f S16_LE -t raw" &
@@ -104,5 +105,3 @@ sudo systemctl enable --now wyoming-satellite.service
 
 echo "Wyoming Satellite service is now running."
 echo "You can check the logs with: journalctl -u wyoming-satellite.service -f"
-
-
