@@ -33,10 +33,8 @@ Enter your choice (0-9):
 Here's a summary of what this script does:
     It give you the options to perform updates and upgrades the system.
     
-    Install Chromium in kiosk mode.
-    Create a script to launch Chromium in kiosk mode.
-    Optionally, it sets up debugging for Chromium.
-    Add Chromium to autostart.
+    Install Chromium in kiosk mode. WIP
+    Add Chromium to autostart. wip
     Clone the Wyoming Satellite repository.
     Install drivers and dependencies for Wyoming Satellite.
     Prompt the user to choose a microphone device for recording audio.
@@ -44,6 +42,6 @@ Here's a summary of what this script does:
     Runs the Wyoming Satellite with appropriate parameters.
     Create a systemd service for Wyoming Satellite.
     Install and configures Raspotify for Spotify Connect.
-    Prompt the user for my_script_user and my_script_group.
+    create a user and group to run the scripts under.
     Create systemd services for Python scripts with user and group values.
     Reboot the server.
