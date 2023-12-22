@@ -1,7 +1,8 @@
 #!/bin/bash
 ######### Create a script to start a Python HTTP server and configure it as a systemd service #######
 sudo cp /usr/src/HA-Satellite/templates/home-index.html /var/www/html/ha-home/index.html
-
+echo "Copying images to web server directory..."
+sudo cp /usr/src/HA-Satellite/scripts/static/main-static/* /var/www/html/ha-home/
 # Create the 'hasatellite' group and user for running the scripts
 echo "Creating group and user 'hasatellite' for running the scripts..."
 if ! id "hasatellite" &>/dev/null; then
