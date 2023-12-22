@@ -1,13 +1,59 @@
 #!/bin/bash
 ############# INSTALL WYOMING ######################
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to install a package
+install_package() {
+    local package=$1
+
+    # Detect the package manager
+    if command_exists apt-get; then
+        # Debian/Ubuntu
+        sudo apt-get update
+        sudo apt-get install -y "$package"
+    elif command_exists yum; then
+        # CentOS/RHEL
+        sudo yum install -y "$package"
+    elif command_exists brew; then
+        # macOS (Homebrew)
+        brew install "$package"
+    else
+        echo "Package manager not found. You must manually install $package."
+        return 1
+    fi
+
+    return 0
+}
+
+# Check for git and install if not present
+if ! command_exists git; then
+    echo "git is not installed. Attempting to install git..."
+    if ! install_package git; then
+        echo "Failed to install git. Exiting."
+        exit 1
+    fi
+fi
+
+# Check for python3 and install if not present
+if ! command_exists python3; then
+    echo "Python 3 is not installed. Attempting to install Python 3..."
+    if ! install_package python3; then
+        echo "Failed to install Python 3. Exiting."
+        exit 1
+    fi
+fi
+
 echo "clone the wyoming-satellite repository"
 # Get the FQDN of the current machine
 fqdn=$(hostname -f)
+cd /usr/src/
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
 echo "Install drivers for ReSpeaker 2Mic or 4Mic HAT if applicable"
-mkdir -p /usr/src/HA-Satellite/wyoming-satellite/
-cd /usr/src/HA-Satellite/wyoming-satellite/
+cd /usr/src/wyoming-satellite/
 sudo bash etc/install-repeaker-drivers.sh
 
 echo "Install Wyoming Satellite"
@@ -39,16 +85,40 @@ play_audio() {
   aplay -D "plughw:$device" test.wav
 }
 
-echo "Listing available microphones:"
-arecord -l
+# Function to validate the microphone input
+validate_microphone_input() {
+    local input=$1
+    if [[ $input =~ ^[0-9]+,[0-9]+$ ]]; then
+        local card_number=$(echo $input | cut -d',' -f1)
+        local device_number=$(echo $input | cut -d',' -f2)
+        if arecord -l | grep -q "card $card_number:.*device $device_number"; then
+            return 0 # Valid input
+        else
+            echo "Invalid microphone: Card $card_number Device $device_number not found."
+            return 1 # Invalid input
+        fi
+    else
+        echo "Invalid format. Please enter in the format of card_number,device_number."
+        return 1 # Invalid format
+    fi
+}
 
-# Prompt user to choose a microphone device
-echo "Enter the card number and device number of the microphone you want to use format of card_number,device_number:"
-read chosen_microphone
-
-# Record and play audio with the chosen microphone device
-record_audio "$chosen_microphone"
-play_audio "$chosen_microphone"
+# Loop until valid input is received
+chosen_microphone=""
+while [ -z "$chosen_microphone" ]; do
+    echo "Enter the card number and device number of the microphone you want to use in the format of card_number,device_number:"
+    read input_microphone
+    if validate_microphone_input "$input_microphone"; then
+        chosen_microphone="$input_microphone"
+        record_audio "$chosen_microphone"
+        if [ $? -ne 0 ]; then
+            echo "Error occurred during recording. Please try a different microphone device..."
+            chosen_microphone=""
+        else
+            play_audio "$chosen_microphone"
+        fi
+    fi
+done
 
 # Check if there were problems during recording
 if [ $? -ne 0 ]; then
