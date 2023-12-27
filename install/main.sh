@@ -18,7 +18,7 @@ echo "                       |:  1   |                       |:  1   |          
 echo "                        \:.. ./                        |::.. . |                                      "
 echo "                         `---'                         `-------'                                      "
 echo "                                                                                                     "
-
+source "$(dirname "$0")/config.sh"
 
 
 
@@ -38,7 +38,8 @@ show_menu() {
     echo "7. Clean up and reboot"
     echo "8. Install all components"
     echo "9. Exit"
-    echo "Enter your choice (0-9): "
+    echo "c. Edit Configuration File"
+    echo "Enter your choice (0-9 or c): "
 }
 
 # Main installation script
@@ -66,6 +67,7 @@ while true; do
          echo "All components have been installed.";;
       9) echo "Exiting script."
          break;;
-      *) echo "Invalid option. Please enter a number between 0 and 9.";;
+      c) sudo nano $CONFIG_FILE;;
+      *) echo "Invalid option. Please enter a number between 0 and 9 or 'c'.";;
     esac
 done
