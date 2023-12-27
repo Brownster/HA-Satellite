@@ -1,12 +1,16 @@
 import RPi.GPIO as GPIO
 import time
 import webbrowser
+import sys
+sys.path.append('/usr/src/HA-Satellite/scripts/')
+import config
+
 
 # GPIO pin for the button
 BUTTON_PIN = 17
 
 # URL of the locally hosted webpage
-LOCAL_URL = 'http://localhost/your-local-page.html'
+LOCAL_URL = config.DEFAULT_URL
 
 # Initialize GPIO
 GPIO.setmode(GPIO.BCM)

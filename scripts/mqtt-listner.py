@@ -1,15 +1,18 @@
 import os
 import subprocess
 import paho.mqtt.client as mqtt
+import sys
+sys.path.append('/usr/src/HA-Satellite/scripts/')
+import config
 
-mqtt_host = "192.168.0.21"
-mqtt_port = 1883
+mqtt_host = config.mqtt_host
+mqtt_port = config.mqtt_port
 # Define a topic for setting the border screen brightness
-brightness_topic = "homeassistant/your_screen/brightness"
+brightness_topic = "homeassistant/{config.SCREEN_NAME}/brightness"
 # Define a topic for setting the border
-border_topic = "homeassistant/your_screen/border"  # Define topic for setting the border
+border_topic = "homeassistant/{config.SCREEN_NAME}/border"  # Define topic for setting the border
 # Define topic for setting and deleting alarms
-alarm_topic = "homeassistant/alarm/control"
+alarm_topic = "homeassistant/{config.SCREEN_NAME}/alarm/control"
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT Broker with result code " + str(rc))
     client.subscribe(brightness_topic)
@@ -61,7 +64,7 @@ def handle_alarm_control(message):
         return
 
     # Assuming spotify-alarm.py takes arguments in the format: day time action
-    command = ["python", "/usr/src/HA-Satellite/scripts/alarm_clock/manage-cron.py", day, time, action]
+    command = ["python", "{config.REPO_INSTALL_PATH}/scripts/alarm_clock/manage-cron.py", day, time, action]
     subprocess.run(command)
 
 
