@@ -53,7 +53,6 @@
     <h1>Settings</h1>
     <div class="container">
         <form id="settingsForm">
-            <!-- Placeholder for future settings -->
             <div class="form-group">
                 <label for="setting1">Setting 1:</label>
                 <input type="text" id="setting1" name="setting1">
@@ -67,10 +66,17 @@
                     <option value="option3">Option 3</option>
                 </select>
             </div>
-
-            <!-- More settings can be added here -->
-
+            <hr> <!-- A separator for the new section -->
+            <h2>Config Variables</h2>
+            {% for key, value in settings.items() %}
+            <div class="form-group">
+                <label for="{{ key }}">{{ key }}:</label>
+                <input type="text" id="{{ key }}" name="{{ key }}" value="{{ value }}">
+            </div>
+            {% endfor %}
+        
             <button type="submit">Save Changes</button>
+        </div>
         </form>
     </div>
 
