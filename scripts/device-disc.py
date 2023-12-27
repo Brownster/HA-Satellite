@@ -23,20 +23,28 @@ brightness_config = {
 client.publish(f"homeassistant/sensor/{device_name}/brightness/config", json.dumps(brightness_config), retain=True)
 
 
-# Define device information
-device_name = "your_alarm_clock"
-device_unique_id = "alarm_clock1"  # You can make this unique for each alarm clock
-device_state_topic = f"homeassistant/{device_name}/state"
-
-# Publish discovery message for alarm clock
-alarm_clock_config = {
-    "name": "Alarm Clock",
-    "unique_id": f"{device_unique_id}/alarm",
-    "state_topic": device_state_topic,
-    "icon": "mdi:clock",
+# Publish discovery message for alarm control (for sending commands)
+alarm_control_config = {
+    "name": "Alarm Control",
+    "unique_id": f"{alarm_device_unique_id}/control",
+    "command_topic": alarm_control_topic,
+    "state_topic": alarm_state_topic,
+    "icon": "mdi:alarm",
+    # You can add payload_on, payload_off, etc. if needed
 }
 
-client.publish(f"homeassistant/sensor/{device_name}/alarm/config", json.dumps(alarm_clock_config), retain=True)
+client.publish(f"homeassistant/switch/{alarm_device_name}/control/config", json.dumps(alarm_control_config), retain=True)
+
+# Publish discovery message for alarm state (to report the state of the alarm)
+alarm_state_config = {
+    "name": "Alarm State",
+    "unique_id": f"{alarm_device_unique_id}/state",
+    "state_topic": alarm_state_topic,
+    "icon": "mdi:alarm",
+    "device_class": "connectivity",  # You can choose an appropriate device class
+}
+
+client.publish(f"homeassistant/binary_sensor/{alarm_device_name}/state/config", json.dumps(alarm_state_config), retain=True)
 
 
 # Publish discovery message for screen border color
