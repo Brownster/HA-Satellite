@@ -22,7 +22,7 @@ EOF
 
 # Make the Chromium start script executable
 sudo chmod +x $INSTALL_DIR/chromium/start-chromium.sh
-@/usr/src/chromium/start-chromium.sh
+
 echo "Chromium installation and autostart configuration complete."
 
 # Ask for the username

@@ -60,9 +60,10 @@ git clone https://github.com/respeaker/seeed-voicecard
 cd seeed-voicecard
 sudo bash ./install.sh
 cd $INSTALL_DIR/wyoming-satellite
+ln -s $VENV_DIR/ .venv
 echo "Install Wyoming Satellite"
-python3 -m venv .venv
-source .venv/bin/activate
+# Activate the virtual environment
+source "$VENV_DIR/bin/activate"
 pip3 install --upgrade pip
 pip3 install --upgrade wheel setuptools
 pip3 install -f 'https://synesthesiam.github.io/prebuilt-apps/' -r requirements.txt -r requirements_extra.txt
