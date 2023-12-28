@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source "$(dirname "$0")/config.sh"
 echo "A bit of clean up"
 sudo apt autoremove -y
 

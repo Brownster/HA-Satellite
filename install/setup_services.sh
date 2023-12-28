@@ -1,6 +1,6 @@
 #!/bin/bash
 ################## Install scripts for MQTT etc and make them services.#######################
-
+source "$(dirname "$0")/config.sh"
 cd /usr/src
 if [ ! -d "HA-Satellite" ]; then
     sudo git clone https://github.com/Brownster/HA-Satellite

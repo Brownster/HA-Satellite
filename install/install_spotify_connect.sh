@@ -1,4 +1,5 @@
 #!/bin/bash
+source "$(dirname "$0")/config.sh"
 ######## INSTALL SPOTIFY CONNECT ################
 #  Install required packages
 echo "Installing required packages..."

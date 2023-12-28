@@ -1,4 +1,5 @@
 #!/bin/bash
+source "$(dirname "$0")/config.sh"
 ############# INSTALL WYOMING ######################
 # Function to check if a command exists
 command_exists() {
@@ -49,13 +50,16 @@ fi
 echo "clone the wyoming-satellite repository"
 # Get the FQDN of the current machine
 fqdn=$(hostname -f)
-cd /usr/src/
+cd $INSTALL_DIR
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
 echo "Install drivers for ReSpeaker 2Mic or 4Mic HAT if applicable"
-cd /usr/src/wyoming-satellite/
-sudo bash etc/install-repeaker-drivers.sh
-
+mkdir -p $INSTALL_DIR/respeaker
+cd $INSTALL_DIR/respeaker/
+git clone https://github.com/respeaker/seeed-voicecard
+cd seeed-voicecard
+sudo bash ./install.sh
+cd $INSTALL_DIR/wyoming-satellite
 echo "Install Wyoming Satellite"
 python3 -m venv .venv
 source .venv/bin/activate
@@ -115,7 +119,8 @@ while [ -z "$chosen_microphone" ]; do
             echo "Error occurred during recording. Please try a different microphone device..."
             chosen_microphone=""
         else
-            play_audio "$chosen_microphone"
+            chosen_speaker="$chosen_microphone"
+            play_audio "$chosen_speaker"
         fi
     fi
 done
@@ -139,7 +144,7 @@ if [ -n "$new_microphone" ]; then
 else
   echo "Using default microphone device."
   record_audio "$chosen_microphone" # Using the originally chosen device
-  play_audio "$chosen_microphone"   # Using the originally chosen device for playback
+  play_audio "$chosen_speaker"   # Using the originally chosen device for playback
 fi
 
 # Run the satellite
@@ -149,7 +154,7 @@ echo "Starting the Wyoming Satellite..."
   --name '$fqdn' \
   --uri 'tcp://0.0.0.0:10700' \
   --mic-command "arecord -D plughw:$chosen_microphone -r 16000 -c 1 -f S16_LE -t raw" \
-  --snd-command "aplay -D plughw:$chosen_microphone -r 22050 -c 1 -f S16_LE -t raw" &
+  --snd-command "aplay -D plughw:$chosen_speaker -r 22050 -c 1 -f S16_LE -t raw" &
 
 
 # Create a systemd service for the satellite

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source "$(dirname "$0")/config.sh"
 # Update and upgrade the system
 echo "Updating and upgrading the system..."
 
