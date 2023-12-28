@@ -112,10 +112,11 @@ while [ -z "$chosen_microphone" ]; do
         chosen_microphone="$input_microphone"
         record_audio "$chosen_microphone"
         if [ $? -ne 0 ]; then
-            echo "Error occurred during recording. Please try a different microphone device..."
             chosen_microphone=""
         else
+            echo "Microphone device $chosen_microphone is working."
             chosen_speaker="$chosen_microphone"
+            echo "Using $chosen_speaker for playback as well."
             play_audio "$chosen_speaker"
         fi
     fi
@@ -134,6 +135,7 @@ if [ $? -ne 0 ]; then
   read new_microphone
 
 # Use the new microphone device for recording and playback
+echo "Trying new microphone device: $new_microphone"
 if [ -n "$new_microphone" ]; then
   record_audio "$new_microphone"
   play_audio "$new_microphone"
@@ -147,13 +149,13 @@ fi
 echo "Starting the Wyoming Satellite..."
 ./script/run \
   --debug \
-  --name '$fqdn' \
+  --name 'my satellite' \
   --uri 'tcp://0.0.0.0:10700' \
   --mic-command "arecord -D plughw:$chosen_microphone -r 16000 -c 1 -f S16_LE -t raw" \
-  --snd-command "aplay -D plughw:$chosen_speaker -r 22050 -c 1 -f S16_LE -t raw" &
+  --snd-command "aplay -D plughw:$chosen_microphone -r 22050 -c 1 -f S16_LE -t raw" &
 
 
-# Create a systemd service for the satellite
+echo "Create a systemd service for the satellite"
 sudo tee /etc/systemd/system/wyoming-satellite.service > /dev/null <<EOL
 [Unit]
 Description=Wyoming Satellite
@@ -171,7 +173,7 @@ RestartSec=1
 WantedBy=default.target
 EOL
 
-# Enable and start the systemd service
+echo "Enable and start the systemd service"
 sudo systemctl enable --now wyoming-satellite.service
 
 echo "Wyoming Satellite service is now running."
