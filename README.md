@@ -1,6 +1,6 @@
 # HA-Satellite
 The aim (that is nowhere complete) is a home assistant satellite with voice intergration and dashboard also spotify connect and alarm clock all with some kind of control via mqtt.
-The Target platform for this attempt is pi os bookworm raspberry pi 4 4GB.
+The Target platform for this attempt is pi os debian bookworm minimal 64bit raspberry pi 4 4GB. For testing i am using usb headset for wyoming and seperate speaker for spotify connect. Connect usb devices before pwering on the PI.
 
 INSTALL SCRIPT
 install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
