@@ -39,12 +39,12 @@ show_menu() {
     echo "8. Install all components"
     echo "9. Exit"
     echo "######### OPTIONS #########"
-    echo "a. run the Home Assistant mqtt adiscovery python script"
+    echo "a. Run the Home Assistant mqtt discovery python script"
     echo "c. Edit Installer Configuration File"
     echo "d. Install Drivers (SEEED VOICE HAT)"
     echo "p. Run raspi-config to set desktop autologin and other settings"
     echo "s. Edit Python Scripts settings file"
-    echo "Enter your choice (0-9 or c): "
+    echo "Enter your choice (0-9 or a,c,d,p,s): "
 }
 
 # Main installation script
@@ -77,6 +77,6 @@ while true; do
       d) bash seeed-voice-hat.sh;;
       p) sudo sudo raspi-config;;
       s) sudo nano $PYTHON_SCRIPTS_CONFIG_FILE;;
-      *) echo "Invalid option. Please enter a number between 0 and 9 or 'c'.";;
+      *) echo "Invalid option. Please enter a number between 0 and 9 or a Letter a,c,d,p,s).";;
     esac
 done
