@@ -107,6 +107,8 @@ validate_microphone_input() {
 # Loop until valid input is received
 chosen_microphone=""
 while [ -z "$chosen_microphone" ]; do
+    # List available microphones
+    sudo arecord -l
     echo "Enter the card number and device number of the microphone you want to use in the format of card_number,device_number:"
     read input_microphone
     if validate_microphone_input "$input_microphone"; then
