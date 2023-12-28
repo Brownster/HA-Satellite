@@ -39,7 +39,8 @@ show_menu() {
     echo "8. Install all components"
     echo "9. Exit"
     echo "c. Edit Configuration File"
-    echo "d. Install Drivers (SEEED VOICE HAT)                                                                                  "
+    echo "d. Install Drivers (SEEED VOICE HAT)"
+    echo "p. Run raspi-config to set desktop autologin and other settings"
     echo "Enter your choice (0-9 or c): "
 }
 
@@ -70,6 +71,7 @@ while true; do
          break;;
       c) sudo nano $CONFIG_FILE;;
       d) bash seeed-voice-hat.sh;;
+      p) sudo sudo raspi-config;;
       *) echo "Invalid option. Please enter a number between 0 and 9 or 'c'.";;
     esac
 done
