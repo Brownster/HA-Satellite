@@ -1,4 +1,4 @@
-#!/bin/bash                                                                                           
+#!/bin/bash
 
 # Update and upgrade the system
 echo "Updating and upgrading the system..."
@@ -9,7 +9,8 @@ sudo apt-get dist-upgrade -y
 sudo apt-get clean
 
 echo "Installing necessary packages..."
-sudo apt-get install --no-install-recommends git python3-venv python3 python3-pip apache2 onboard subprocess -y
+# Removed subprocess from the installation list
+sudo apt-get install --no-install-recommends git python3-venv python3 python3-pip apache2 onboard -y
 
 echo "Installing Python packages..."
-pip3 install paho-mqtt playsound
+pip3 install paho-mqtt playsound 
