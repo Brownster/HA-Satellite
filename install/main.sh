@@ -77,11 +77,11 @@ while true; do
          echo "All components have been installed.";;
       9) echo "Exiting script."
          break;;
-      a) sudo python3 $INSTALL_PATH/scripts/mqtt_adiscovery.py;;  
-      c) sudo nano $INSTALL_CONFIG_FILE;;
+      a) python3 $INSTALL_PATH/scripts/mqtt_adiscovery.py;;  
+      c) nano $INSTALL_CONFIG_FILE;;
       d) bash seeed-voice-hat.sh;;
-      p) sudo sudo raspi-config;;
-      s) sudo nano $PYTHON_SCRIPTS_CONFIG_FILE;;
+      p) raspi-config;;
+      s) nano $PYTHON_SCRIPTS_CONFIG_FILE;;
       *) echo "Invalid option. Please enter a number between 0 and 9 or a Letter a,c,d,p,s).";;
     esac
 done
