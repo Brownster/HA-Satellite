@@ -27,7 +27,7 @@ source "$(dirname "$0")/config.sh"
 show_menu() {
     echo "                                                                                  "
     echo "                                                                                  "
-    echo "Installation script for Home Assistant HUB type of thing. Please select an option:"
+    echo "Installation script for Home Assistant HUB. Please select an option:"
     echo "0. Install updates and dependencies"
     echo "1. Install LXDE"
     echo "2. Install Chromium in Kiosk Mode"
