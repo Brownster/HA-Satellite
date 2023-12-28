@@ -17,12 +17,12 @@ else
     echo "User '$USER' already exists. Skipping user creation."
 fi
 
-
 # Create systemd services for Python scripts with 'hasatellite' user and group
 create_service() {
     script_name="$1"
     service_name="${script_name%.py}"  # Remove the .py extension to create the service name
     service_file="/etc/systemd/system/${service_name}.service"
+    venv_path="$VENV_DIR"  # Path to the virtual environment's Python interpreter
 
     echo "Creating systemd service for $script_name..."
     cat <<EOF | sudo tee "$service_file" > /dev/null
@@ -32,7 +32,7 @@ After=network.target
 Wants=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 "$PWD/$script_name"
+ExecStart=$venv_path "$PWD/$script_name"
 Restart=always
 User=$USER
 Group=$USER_GROUP
@@ -49,7 +49,7 @@ EOF
 }
 
 # List of Python scripts you want to create services for
-python_scripts=("mqtt-listener.py" "alarm-clock.py" "kiosk-home.py")
+python_scripts=("mqtt-listener.py" "spotify-alarm.py" "kiosk-home.py")
 
 # Create systemd services for each script
 for script in "${python_scripts[@]}"; do
