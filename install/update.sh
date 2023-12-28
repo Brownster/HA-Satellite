@@ -10,7 +10,7 @@ sudo apt-get clean
 
 echo "Installing necessary packages..."
 # Removed subprocess from the installation list
-sudo apt-get install --no-install-recommends git python3-venv python3 python3-pip apache2 onboard -y
+sudo apt install --no-install-recommends git python3-venv python3 python3-pip apache2 onboard -y
 
 echo "Installing Python packages..."
 pip3 install paho-mqtt playsound 
