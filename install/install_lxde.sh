@@ -15,4 +15,4 @@ echo "Setting up auto-login to desktop as the 'pi' user..."
 sudo raspi-config nonint do_boot_behaviour B4
 
 echo "LXDE installation complete. The system will auto-login to desktop as the 'pi' user."
-echo "if you want to change the auto-login user, run 'sudo raspi-config' and select 'System Options' > 'Boot / Auto Login'"
+echo "if you want to change the auto-login user, choose option 'p' and select 'System Options' > 'Boot / Auto Login'"
