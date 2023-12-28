@@ -112,6 +112,7 @@ while [ -z "$chosen_microphone" ]; do
         chosen_microphone="$input_microphone"
         record_audio "$chosen_microphone"
         if [ $? -ne 0 ]; then
+            echo "Error occurred during recording with $chosen_microphone. Please try a different microphone device..."
             chosen_microphone=""
         else
             echo "Microphone device $chosen_microphone is working."
@@ -133,6 +134,7 @@ if [ $? -ne 0 ]; then
   # Prompt user to choose a different microphone device
   echo "Enter a different microphone device with format of card_number,device_number:"
   read new_microphone
+fi
 
 # Use the new microphone device for recording and playback
 echo "Trying new microphone device: $new_microphone"
