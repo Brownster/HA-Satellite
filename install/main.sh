@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "this script is no where near complete but none the less attempts to install chromium in kiosk mode HA satellite for voice,"
-echo "spotify connect, a alarm clock and simple gui. With mqtt as to have some level of control over the assistants hardware"
+echo "spotify connect, an alarm clock with very simple gui to set times leveraging crontab. With mqtt as to have some level of control over the assistants hardware"
 #
 echo "                                                                                                       "
 echo "                  ___ ___                          _______             __       __               __   "
@@ -27,7 +27,12 @@ source "$(dirname "$0")/config.sh"
 show_menu() {
     echo "                                                                                  "
     echo "                                                                                  "
-    echo "Installation script for Home Assistant HUB. Please select an option:"
+    echo "Installation script for Home Assistant HUB. If this is the first run, please run  "
+    echo "option c and s first making sure to set the correct settings for your environment."
+    echo "then run option 8 to install all components. Or run each option individually.  "
+    echo "                                                                                  "                                                                                                    
+    echo "Please select an option:"
+    echo "                                                                                  "
     echo "0. Install updates and dependencies"
     echo "1. Install LXDE"
     echo "2. Install Chromium in Kiosk Mode"
