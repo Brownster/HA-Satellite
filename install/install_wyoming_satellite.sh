@@ -53,13 +53,8 @@ fqdn=$(hostname -f)
 cd $INSTALL_DIR
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
-echo "Install drivers for ReSpeaker 2Mic or 4Mic HAT if applicable"
-mkdir -p $INSTALL_DIR/respeaker
-cd $INSTALL_DIR/respeaker/
-git clone https://github.com/respeaker/seeed-voicecard
-cd seeed-voicecard
-sudo bash ./install.sh
 cd $INSTALL_DIR/wyoming-satellite
+# link the virtual environment directory to the wyoming-satellite directory
 ln -s $VENV_DIR/ .venv
 echo "Install Wyoming Satellite"
 # Activate the virtual environment

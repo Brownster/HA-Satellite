@@ -39,6 +39,7 @@ show_menu() {
     echo "8. Install all components"
     echo "9. Exit"
     echo "c. Edit Configuration File"
+    echo "d. Install Drivers (SEEED VOICE HAT)                                                                                  "
     echo "Enter your choice (0-9 or c): "
 }
 
@@ -68,6 +69,7 @@ while true; do
       9) echo "Exiting script."
          break;;
       c) sudo nano $CONFIG_FILE;;
+      d) bash seeed-voice-hat.sh;;
       *) echo "Invalid option. Please enter a number between 0 and 9 or 'c'.";;
     esac
 done
