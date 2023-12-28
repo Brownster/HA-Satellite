@@ -54,11 +54,11 @@ cd $INSTALL_DIR
 git clone https://github.com/rhasspy/wyoming-satellite.git
 
 cd $INSTALL_DIR/wyoming-satellite
-# link the virtual environment directory to the wyoming-satellite directory
-ln -s $VENV_DIR/ .venv
-echo "Install Wyoming Satellite"
-# Activate the virtual environment
-source "$VENV_DIR/bin/activate"
+# create the virtual environment directory in the wyoming-satellite repo directory
+echo "Creating a Python virtual environment..."
+python3 -m venv .venv
+source .venv/bin/activate
+echo "installing pip, wheel, and setuptools..."
 pip3 install --upgrade pip
 pip3 install --upgrade wheel setuptools
 pip3 install -f 'https://synesthesiam.github.io/prebuilt-apps/' -r requirements.txt -r requirements_extra.txt
@@ -87,6 +87,7 @@ play_audio() {
 
 # Function to validate the microphone input
 validate_microphone_input() {
+    echo "Validating microphone input: $1"
     local input=$1
     if [[ $input =~ ^[0-9]+,[0-9]+$ ]]; then
         local card_number=$(echo $input | cut -d',' -f1)
