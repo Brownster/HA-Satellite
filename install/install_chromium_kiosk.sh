@@ -31,14 +31,14 @@ sudo apt install chromium -y
 read -p "Enter your username: " username
 
 # Define the source and destination paths
-#src="/etc/xdg/lxsession/LXDE/autostart"
+src="/etc/xdg/lxsession/LXDE/autostart"
 dest="/home/$username/.config/lxsession/LXDE/autostart"
 
 # Create the directory if it doesn't exist
-#mkdir -p "$(dirname "$dest")"
+mkdir -p "$(dirname "$dest")"
 
 # Copy the autostart file
-#cp "$src" "$dest"
+cp "$src" "$dest"
 
 # Add the Chromium start command to the autostart file
 echo "@chromium-browser --noerrors --disable-session-crashed-bubble --disable-infobars --start-fullscreen https://127.0.0.1/index.html" >> "$dest"
