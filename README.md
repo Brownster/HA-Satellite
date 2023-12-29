@@ -17,9 +17,7 @@ Prerequisites
 Steps
 
     Login to Raspberry Pi and execute the following command:
-
-    bash
-    
+  
     sudo wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && sudo bash install.sh && cd /usr/src/HA-Satellite/install && sudo bash main.sh
 
 
