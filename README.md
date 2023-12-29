@@ -27,7 +27,12 @@ Login to Raspberry Pi and execute the following command:
 
 Follow the Installation Script Prompts:
 
-You should see something like
+You should see something like the below, i suggest rebooting after install the desktop. you should have start.sh 
+in your home directory so after a reboot run to get the main script running again. If you chose the install all option, 
+choose that option again it should continue from where it left off after installing desktop.
+
+    
+    sudo bash start.sh
 
 Please select an option:
 
