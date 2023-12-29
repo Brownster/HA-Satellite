@@ -67,6 +67,7 @@ while true; do
       6) bash setup_homepage_http_server.sh;;
       7) bash finish_and_reboot.sh;;
       8) bash update.sh
+         bash reboot_check_all.sh
          bash install_lxde.sh
          bash install_chromium_kiosk.sh
          bash install_wyoming_satellite.sh
