@@ -18,6 +18,9 @@ git clone $REPO_URL
 
 # copy start.sh to ~/home
 cp $REPO_DIR/install/start.sh ~/
+# Link config.sh to ~/config.sh
+ln -s /usr/src/HA-Satellite/install/config.sh ~/config.sh
+
 
 # Change permissions for all .sh files in the install directory
 chmod +x $REPO_DIR/install/*.sh

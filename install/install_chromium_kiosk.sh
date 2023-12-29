@@ -41,7 +41,7 @@ mkdir -p "$(dirname "$dest")"
 cp "$src" "$dest"
 
 # Add the Chromium start command to the autostart file
-echo "@chromium-browser --noerrors --disable-session-crashed-bubble --disable-infobars --start-fullscreen https://127.0.0.1/index.html" >> "$dest"
+echo "@chromium --noerrors --disable-session-crashed-bubble --disable-infobars --start-fullscreen http://127.0.0.1/index.html" >> "$dest"
 #echo "@chromium-browser --noerrors --kiosk --disable-session-crashed-bubble --disable-infobars --start-fullscreen https://127.0.0.1/index.html" >> "$dest"
 #echo "@chromium --noerrors --disable-session-crashed-bubble --disable-infobars --start-fullscreen https://127.0.0.1/index.html" >> "$dest"
 #echo "@/usr/src/chromium/start-chromium.sh" >> "$dest"
