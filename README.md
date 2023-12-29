@@ -17,9 +17,9 @@ Prerequisites
     Connect USB mic, speakers, HATs, etc. Current testing is with a USB headset; 
     plans may include a USB conference mic and a simple USB speaker for the assistant, and an audio DAC HAT for Spotify.
 
-Steps
+Installation Steps
 
-    Login to Raspberry Pi and execute the following command:
+Login to Raspberry Pi and execute the following command:
   
     sudo wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && sudo bash install.sh && cd /usr/src/HA-Satellite/install && sudo bash main.sh
 
