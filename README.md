@@ -25,7 +25,7 @@ Steps
 
 Follow the Installation Script Prompts:
 
-markdown
+
 
     Installation script for multiple components. Please select an option:
 
