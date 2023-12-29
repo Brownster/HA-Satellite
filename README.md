@@ -6,7 +6,8 @@ Target Platform
 
     OS: Pi OS Debian Bookworm Minimal 64bit
     Device: Raspberry Pi 4 (4GB RAM)
-    Testing Setup: USB headset for Wyoming and separate speaker for Spotify Connect. Ensure all USB devices are connected before powering on the Pi.
+    Testing Setup: USB headset for Wyoming and separate speaker for Spotify Connect. Ensure all USB devices are 
+                   connected before powering on the Pi.
 
 Installation
 Prerequisites
