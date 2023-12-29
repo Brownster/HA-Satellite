@@ -2,7 +2,8 @@ HA-Satellite
 Overview
 
 HA-Satellite aims to create a multifunctional Home Assistant satellite with various features including voice integration, a dashboard, Spotify Connect, and an alarm clock, all controllable via MQTT. This project is a work-in-progress.
-Target Platform
+
+Target Platform:
 
     OS: Pi OS Debian Bookworm Minimal 64bit
     Device: Raspberry Pi 4 (4GB RAM)
@@ -10,14 +11,14 @@ Target Platform
                    connected before powering on the Pi.
 
 Installation
-Prerequisites
+Prerequisites:
 
     Install Raspberry Pi 64-bit minimal OS. Configure Wi-Fi, SSH, etc., using the Raspberry Pi Imager application. 
     See Raspberry Pi Getting Started Guide https://www.raspberrypi.com/documentation/computers/getting-started.html
     Connect USB mic, speakers, HATs, etc. Current testing is with a USB headset; 
     plans may include a USB conference mic and a simple USB speaker for the assistant, and an audio DAC HAT for Spotify.
 
-Installation Steps
+Installation Steps:
 
 Login to Raspberry Pi and execute the following command:
   
@@ -26,9 +27,9 @@ Login to Raspberry Pi and execute the following command:
 
 Follow the Installation Script Prompts:
 
+You should see something like
 
-
-    Installation script for multiple components. Please select an option:
+Please select an option:
 
     0. Install updates and dependencies
     1. Install LXDE
@@ -36,11 +37,18 @@ Follow the Installation Script Prompts:
     3. Install Wyoming Satellite
     4. Install Spotify Connect
     5. Setup Services
-    6. Setup Python HTTP Server
+    6. Setup Hub Homepage
     7. Clean up and reboot
     8. Install all components
     9. Exit
-    Enter your choice (0-9):
+    ######### OPTIONS #########
+    a. Run the Home Assistant mqtt discovery python script
+    c. Edit Installer Configuration File
+    d. Install Drivers (SEEED VOICE HAT)
+    p. Run raspi-config to set desktop autologin and other settings
+    s. Edit Python Scripts settings file
+    Enter your choice (0-9 or a,c,d,p,s):
+
 
 Script Functions
 
