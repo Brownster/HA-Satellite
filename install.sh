@@ -16,6 +16,9 @@ fi
 # Clone the repository
 git clone $REPO_URL
 
+# copy start.sh to ~/home
+cp $REPO_DIR/install/start.sh ~/
+
 # Change permissions for all .sh files in the install directory
 chmod +x $REPO_DIR/install/*.sh
 
