@@ -13,7 +13,8 @@ Installation
 Prerequisites
 
     Install Raspberry Pi 64-bit minimal OS. Configure Wi-Fi, SSH, etc., using the Raspberry Pi Imager application. 
-    Raspberry Pi Getting Started Guide Connect USB mic, speakers, HATs, etc. Current testing is with a USB headset; 
+    See Raspberry Pi Getting Started Guide https://www.raspberrypi.com/documentation/computers/getting-started.html
+    Connect USB mic, speakers, HATs, etc. Current testing is with a USB headset; 
     plans may include a USB conference mic and a simple USB speaker for the assistant, and an audio DAC HAT for Spotify.
 
 Steps
