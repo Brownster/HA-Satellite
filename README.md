@@ -1,47 +1,57 @@
-# HA-Satellite
-The aim (that is nowhere complete) is a home assistant satellite with voice intergration and dashboard also spotify connect and alarm clock all with some kind of control via mqtt.
-The Target platform for this attempt is pi os debian bookworm minimal 64bit raspberry pi 4 4GB. For testing i am using usb headset for wyoming and seperate speaker for spotify connect. Connect usb devices before pwering on the PI.
+HA-Satellite
+Overview
 
-INSTALL SCRIPT
-install raspberry pi 64 bit minimal, set up wifi ssh etc in imager application
-https://www.raspberrypi.com/documentation/computers/getting-started.html
-plugin your usb mic / speakers / hats etc. I am currently testing with usb headset as the hat is out stock may go with usb conference mic with simple usb speaker for assistant and a audio dac hat for spotify.... well thats the current plan.
+HA-Satellite aims to create a multifunctional Home Assistant satellite with various features including voice integration, a dashboard, Spotify Connect, and an alarm clock, all controllable via MQTT. This project is a work-in-progress.
+Target Platform
 
-login to raspberry pi and run the following
+    OS: Pi OS Debian Bookworm Minimal 64bit
+    Device: Raspberry Pi 4 (4GB RAM)
+    Testing Setup: USB headset for Wyoming and separate speaker for Spotify Connect. Ensure all USB devices are connected before powering on the Pi.
 
-command 1:   
+Installation
+Prerequisites
+
+    Install Raspberry Pi 64-bit minimal OS. Configure Wi-Fi, SSH, etc., using the Raspberry Pi Imager application. Raspberry Pi Getting Started Guide
+    Connect USB mic, speakers, HATs, etc. Current testing is with a USB headset; plans may include a USB conference mic and a simple USB speaker for the assistant, and an audio DAC HAT for Spotify.
+
+Steps
+
+    Login to Raspberry Pi and execute the following command:
+
+    bash
+
 sudo wget https://raw.githubusercontent.com/Brownster/HA-Satellite/main/install.sh && sudo bash install.sh && cd /usr/src/HA-Satellite/install && sudo bash main.sh
 
+Follow the Installation Script Prompts:
 
-You should be greeted with:
+markdown
 
-Installation script for multiple components. Please select an option:
+    Installation script for multiple components. Please select an option:
 
-0. Install updates and dependencies
-1. Install LXDE
-2. Install Chromium in Kiosk Mode
-3. Install Wyoming Satellite
-4. Install Spotify Connect
-5. Setup Services
-6. Setup Python HTTP Server
-7. Clean up and reboot
-8. Install all components
-9. Exit
-Enter your choice (0-9):
+    0. Install updates and dependencies
+    1. Install LXDE
+    2. Install Chromium in Kiosk Mode
+    3. Install Wyoming Satellite
+    4. Install Spotify Connect
+    5. Setup Services
+    6. Setup Python HTTP Server
+    7. Clean up and reboot
+    8. Install all components
+    9. Exit
+    Enter your choice (0-9):
 
+Script Functions
 
-Here's a summary of what this script does:
-    It give you the options to perform updates and upgrades the system.
-    
-    Install Chromium in kiosk mode. WIP
-    Add Chromium to autostart. wip
-    Clone the Wyoming Satellite repository.
-    Install drivers and dependencies for Wyoming Satellite.
-    Prompt the user to choose a microphone device for recording audio.
-    Record and plays back audio to test the chosen microphone device.
-    Runs the Wyoming Satellite with appropriate parameters.
-    Create a systemd service for Wyoming Satellite.
-    Install and configures Raspotify for Spotify Connect.
-    create a user and group to run the scripts under.
-    Create systemd services for Python scripts with user and group values.
-    Reboot the server.
+    Updates and upgrades the system.
+    Installs Chromium in kiosk mode (WIP).
+    Adds Chromium to autostart (WIP).
+    Clones the Wyoming Satellite repository.
+    Installs drivers and dependencies for Wyoming Satellite.
+    Prompts for microphone device selection.
+    Tests the chosen microphone device with recording and playback.
+    Runs Wyoming Satellite with appropriate parameters.
+    Creates a systemd service for Wyoming Satellite.
+    Installs and configures Raspotify for Spotify Connect.
+    Creates a user and group for running scripts.
+    Sets up systemd services for Python scripts with user/group.
+    Reboots the server.
