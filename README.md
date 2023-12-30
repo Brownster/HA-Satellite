@@ -58,8 +58,8 @@ Please select an option:
 Script Functions
 
     Updates and upgrades the system.
-    Installs Chromium in kiosk mode (WIP).
-    Adds Chromium to autostart (WIP).
+    Installs Chromium in kiosk mode.
+    Adds Chromium to autostart.
     Clones the Wyoming Satellite repository.
     Installs drivers and dependencies for Wyoming Satellite.
     Prompts for microphone device selection.
@@ -68,5 +68,5 @@ Script Functions
     Creates a systemd service for Wyoming Satellite.
     Installs and configures Raspotify for Spotify Connect.
     Creates a user and group for running scripts.
-    Sets up systemd services for Python scripts with user/group.
+    Sets up systemd services for Python scripts with user/group. WIP
     Reboots the server.
