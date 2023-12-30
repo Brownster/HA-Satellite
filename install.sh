@@ -16,14 +16,13 @@ fi
 # Clone the repository
 git clone $REPO_URL
 
+# Change permissions for all .sh files in the install directory
+chmod +x $REPO_DIR/install/*.sh
+
 # copy start.sh to ~/home
 cp $REPO_DIR/install/start.sh ~/
 # Link config.sh to ~/config.sh
 ln -s /usr/src/HA-Satellite/install/config.sh ~/config.sh
-
-
-# Change permissions for all .sh files in the install directory
-chmod +x $REPO_DIR/install/*.sh
 
 # Run main.sh with elevated privileges
 #sudo bash $REPO_DIR/install/main.sh
