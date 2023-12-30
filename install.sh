@@ -20,7 +20,7 @@ git clone $REPO_URL
 chmod +x $REPO_DIR/install/*.sh
 
 # copy start.sh to ~/home
-cp /usr/src/HA-Satellite/install/start.sh ~/
+cp /usr/src/HA-Satellite/install/start.sh /$HOME/start.sh
 # Link config.sh to ~/config.sh
 ln -s /usr/src/HA-Satellite/install/config.sh ~/config.sh
 
