@@ -66,9 +66,12 @@ while true; do
       5) bash setup_services.sh;;
       6) bash setup_homepage_http_server.sh;;
       7) bash finish_and_reboot.sh;;
-      8) bash update.sh
-         bash reboot_check_all.sh
+      8) bash reboot_check_all.sh
+         bash update.sh
          bash install_lxde.sh
+         bash raspi_config_info.sh
+         raspi-config
+         bash reboot_all.sh
          bash install_chromium_kiosk.sh
          bash install_wyoming_satellite.sh
          bash install_spotify_connect.sh
@@ -81,7 +84,8 @@ while true; do
       a) python3 $INSTALL_PATH/scripts/mqtt_adiscovery.py;;  
       c) nano $INSTALL_CONFIG_FILE;;
       d) bash seeed-voice-hat.sh;;
-      p) raspi-config;;
+      p) bash raspi_config_info.sh
+         raspi-config;;
       s) nano $PYTHON_SCRIPTS_CONFIG_FILE;;
       *) echo "Invalid option. Please enter a number between 0 and 9 or a Letter a,c,d,p,s).";;
     esac
