@@ -25,7 +25,7 @@ source "$VENV_DIR/bin/activate"
 
 # Upgrade pip, wheel, and setuptools in the virtual environment
 echo "Upgrading pip, wheel, and setuptools..."
-pip install --upgrade pip wheel setuptools paho-mqtt playsound
+pip install --upgrade pip wheel setuptools paho-mqtt playsound RPi.GPIO
 
 # Deactivate the virtual environment
 deactivate
