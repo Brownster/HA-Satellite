@@ -19,10 +19,21 @@ git clone $REPO_URL
 # Change permissions for all .sh files in the install directory
 chmod +x $REPO_DIR/install/*.sh
 
-# copy start.sh to ~/home
-cp /usr/src/HA-Satellite/install/start.sh /$HOME/start.sh
-# Link config.sh to ~/config.sh
-ln -s /usr/src/HA-Satellite/install/config.sh ~/config.sh
+# Ask for the username
+read -p "Enter the username: " username
+
+# Define the home directory of the user
+user_home="/home/$username"
+
+# Copy start.sh to the user's home directory
+cp /usr/src/HA-Satellite/install/start.sh "$user_home/start.sh"
+
+# Create a symbolic link to config.sh in the user's home directory
+ln -s /usr/src/HA-Satellite/install/config.sh "$user_home/config.sh"
+
+# Update the USER_NAME variable in config.sh
+sed -i "s/^USER_NAME=\"\"/USER_NAME=\"$username\"/" /usr/src/HA-Satellite/install/config.sh
+
 
 # Run main.sh with elevated privileges
 #sudo bash $REPO_DIR/install/main.sh
