@@ -16,7 +16,9 @@ Prerequisites:
     Install Raspberry Pi 64-bit minimal OS. Configure Wi-Fi, SSH, etc., using the Raspberry Pi Imager application. 
     See Raspberry Pi Getting Started Guide https://www.raspberrypi.com/documentation/computers/getting-started.html
     Connect USB mic, speakers, HATs, etc. Current testing is with a USB headset; 
-    plans may include a USB conference mic and a simple USB speaker for the assistant, and an audio DAC HAT for Spotify.
+    plans may include a USB conference mic/speaker and an audio DAC HAT for Spotify for now I am trying the audio 
+    jack with powered speakers for spotify and have a usb headset for wyoming. Touch screen is on order from Aliexpress.
+        Touchscreen: http://tinyurl.com/seveninchscreen
 
 Installation Steps:
 
@@ -58,8 +60,8 @@ Please select an option:
 Script Functions
 
     Updates and upgrades the system.
-    Installs Chromium in kiosk mode (WIP).
-    Adds Chromium to autostart (WIP).
+    Installs Chromium in kiosk mode.
+    Adds Chromium to autostart.
     Clones the Wyoming Satellite repository.
     Installs drivers and dependencies for Wyoming Satellite.
     Prompts for microphone device selection.
@@ -68,5 +70,5 @@ Script Functions
     Creates a systemd service for Wyoming Satellite.
     Installs and configures Raspotify for Spotify Connect.
     Creates a user and group for running scripts.
-    Sets up systemd services for Python scripts with user/group.
+    Sets up systemd services for Python scripts with user/group. WIP
     Reboots the server.
